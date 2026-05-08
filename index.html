@@ -447,7 +447,7 @@
       <div class="card-title">Punkt in der Ebene?</div>
       <div class="card-desc">Untersuche, ob ein Punkt Q in einer gegebenen Parameterform-Ebene liegt.</div>
       <div class="card-status status-open" id="status-e1"><span class="status-dot"></span> OFFEN</div>
-      <a href="aufgaben/e1.html" class="card-btn btn-green" id="btn-e1">→ STARTEN</a>
+      <a href="aufgaben/e1.html" class="card-btn btn-green" id="btn-e1" onclick="this.href=taskUrl('e1')">→ STARTEN</a>
     </div>
 
     <div class="task-card card-green" id="card-e2">
@@ -632,7 +632,7 @@ function updateUI() {
       if (btnEl) {
         btnEl.textContent = '→ NOCHMALS';
         btnEl.className = `card-btn btn-${color}`;
-        btnEl.href = `aufgaben/${id}.html`;
+        btnEl.href = taskUrl(id);
         btnEl.tagName === 'SPAN' && convertBtnToLink(id, color);
       }
     } else if (isUnlocked) {
@@ -661,7 +661,7 @@ function convertBtnToLink(id, color) {
   const old = document.getElementById('btn-' + id);
   if (!old || old.tagName === 'A') return;
   const a = document.createElement('a');
-  a.href = `aufgaben/${id}.html`;
+  a.href = taskUrl(id);
   a.className = `card-btn btn-${color}`;
   a.id = 'btn-' + id;
   a.textContent = '→ STARTEN';
@@ -674,7 +674,7 @@ function openOverlay(target) {
   const unlocked = getUnlocked();
   if (unlocked.includes(target)) {
     // Already unlocked, just navigate
-    window.location.href = `aufgaben/${target}.html`;
+    window.location.href = taskUrl(target);
     return;
   }
   currentTarget = target;
@@ -699,7 +699,7 @@ function checkCode() {
     closeOverlay();
     updateUI();
     // Navigate to task
-    window.location.href = `aufgaben/${currentTarget}.html`;
+    window.location.href = taskUrl(currentTarget);
   } else {
     document.getElementById('overlayError').textContent = '✗ Falscher Code – hast du alle Teilaufgaben gelöst?';
     document.getElementById('codeInput').value = '';
@@ -710,6 +710,18 @@ document.getElementById('codeInput').addEventListener('keydown', e => {
   if (e.key === 'Enter') checkCode();
   if (e.key === 'Escape') closeOverlay();
 });
+
+// Dynamic base path – works regardless of subfolder depth on GitHub Pages
+const BASE_PATH = (() => {
+  const p = window.location.pathname;
+  // Remove trailing filename if present, keep trailing slash
+  const dir = p.endsWith('/') ? p : p.substring(0, p.lastIndexOf('/') + 1);
+  return dir;
+})();
+
+function taskUrl(id) {
+  return BASE_PATH + 'aufgaben/' + id + '.html';
+}
 
 // On load
 createStars();

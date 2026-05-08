@@ -60,7 +60,7 @@
 <div id="stars"></div>
 <div class="page">
   <div class="task-header">
-    <a href="../index.html" class="back-link">← ZURÜCK ZUR STATION</a>
+    <a href="javascript:void(0)" onclick="goHome()" class="back-link">← ZURÜCK ZUR STATION</a>
     <div class="sector-badge">SEKTOR M-3 · BETA-KLASSE</div>
     <div class="task-title">Wahr oder Falsch?</div>
     <div class="task-subtitle">Beurteile geometrische Aussagen über Ebenen in Parameterform</div>
@@ -133,7 +133,7 @@
     <div class="unlock-code">QUASAR3</div>
     <div class="next-hint">→ DIESER CODE WIRD SPÄTER ZUSAMMEN MIT M-4 FÜR S-1 BENÖTIGT</div>
     <br>
-    <a href="../index.html" class="home-btn">← ZURÜCK ZUR STATION</a>
+    <a href="javascript:void(0)" onclick="goHome()" class="home-btn">← ZURÜCK ZUR STATION</a>
   </div>
 </div>
 
@@ -211,6 +211,11 @@ function checkAll() {
   }
 }
 
+function goHome() {
+  const p = window.location.pathname;
+  const dir = p.substring(0, p.lastIndexOf("/aufgaben/"));
+  window.location.href = dir + "/index.html";
+}
 function createStars(){const c=document.getElementById('stars');for(let i=0;i<120;i++){const el=document.createElement('div');el.className='star';const sz=Math.random()*2+.5;el.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${Math.random()*4+2}s;--delay:${Math.random()*4}s;--op:${Math.random()*.5+.1};`;c.appendChild(el);}}
 createStars();
 window.addEventListener('load', ()=>{
