@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sektor M-1 | KEPLER-7</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+<style>
+  :root{--bg:#030810;--panel:#070f1e;--border:#0d2040;--green:#00e5a0;--green-dim:#005540;--yellow:#f5c518;--yellow-dim:#4a3a00;--red:#ff3e5e;--text:#c8dff0;--text-dim:#4a6a8a;--accent:#f5c518;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;min-height:100vh;}
+  #stars{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;}
+  .star{position:absolute;background:white;border-radius:50%;animation:twinkle var(--d,3s) ease-in-out infinite;animation-delay:var(--delay,0s);opacity:var(--op,.5);}
+  @keyframes twinkle{0%,100%{opacity:var(--op,.5);}50%{opacity:0.1;}}
+  .page{position:relative;z-index:1;max-width:780px;margin:0 auto;padding:30px 20px 60px;}
+  .task-header{padding:20px 0 24px;border-bottom:1px solid var(--border);margin-bottom:28px;}
+  .back-link{font-family:'Share Tech Mono',monospace;font-size:0.7rem;color:var(--text-dim);text-decoration:none;letter-spacing:2px;display:inline-block;margin-bottom:16px;}
+  .back-link:hover{color:var(--accent);}
+  .sector-badge{font-family:'Share Tech Mono',monospace;font-size:0.65rem;letter-spacing:3px;color:var(--accent);margin-bottom:8px;}
+  .task-title{font-family:'Orbitron',monospace;font-size:1.3rem;font-weight:700;margin-bottom:4px;}
+  .task-subtitle{font-size:0.82rem;color:var(--text-dim);}
+  .task-box{background:#050d1a;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:6px;padding:24px 28px;margin-bottom:24px;}
+  .task-box h3{font-family:'Orbitron',monospace;font-size:0.75rem;letter-spacing:3px;color:var(--accent);margin-bottom:16px;}
+  .task-text{font-size:0.9rem;line-height:1.8;margin-bottom:12px;}
+  .math-block{background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:14px 18px;margin:14px 0;text-align:center;overflow-x:auto;}
+  .subtask{margin-bottom:28px;border-bottom:1px solid var(--border);padding-bottom:24px;}
+  .subtask:last-child{border-bottom:none;}
+  .subtask-label{font-family:'Share Tech Mono',monospace;font-size:0.7rem;letter-spacing:2px;color:var(--text-dim);margin-bottom:10px;}
+  .subtask-question{font-size:0.88rem;line-height:1.7;margin-bottom:14px;}
+  .attempts{font-family:'Share Tech Mono',monospace;font-size:0.65rem;color:var(--text-dim);letter-spacing:2px;margin-bottom:8px;}
+  .choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+  @media(max-width:500px){.choices{grid-template-columns:1fr;}}
+  .choice-btn{background:var(--panel);border:1px solid var(--border);border-radius:5px;padding:11px 14px;color:var(--text);font-family:'Exo 2',sans-serif;font-size:0.83rem;cursor:pointer;text-align:left;transition:border-color 0.2s,background 0.2s;line-height:1.5;}
+  .choice-btn:hover{border-color:var(--accent);background:#0a1628;}
+  .choice-btn.correct{border-color:var(--green);background:#002a1a;color:var(--green);}
+  .choice-btn.wrong{border-color:var(--red);background:#1a0008;color:var(--red);}
+  .choice-btn.disabled{pointer-events:none;opacity:0.45;}
+  .choice-btn.correct.disabled,.choice-btn.wrong.disabled{opacity:1;}
+  .feedback{display:none;border-radius:4px;padding:14px 18px;font-size:0.83rem;line-height:1.65;margin-top:10px;}
+  .feedback.show{display:block;}
+  .feedback.correct-fb{background:#002a1a;border:1px solid var(--green);color:#80ffcc;}
+  .feedback.wrong-fb{background:#1a0008;border:1px solid var(--red);color:#ff9aaa;}
+  .feedback .hint{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.1);color:var(--text-dim);font-size:0.8rem;}
+  .task-progress{display:flex;gap:8px;margin-bottom:20px;}
+  .prog-dot{width:10px;height:10px;border-radius:50%;border:1px solid var(--border);background:var(--panel);transition:background 0.3s;}
+  .prog-dot.done{background:var(--yellow);border-color:var(--yellow);}
+  .prog-dot.active{border-color:var(--accent);}
+  .total-bar{background:var(--panel);border:1px solid var(--border);border-radius:4px;padding:10px 16px;font-family:'Share Tech Mono',monospace;font-size:0.65rem;color:var(--text-dim);letter-spacing:2px;margin-bottom:24px;}
+  .code-reveal{display:none;margin-top:32px;background:linear-gradient(135deg,#1a1000,#100a00);border:1px solid var(--yellow);border-radius:8px;padding:28px 32px;text-align:center;box-shadow:0 0 30px rgba(245,197,24,0.2);}
+  .code-reveal.show{display:block;animation:fadeIn 0.8s ease;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  .code-reveal h3{font-family:'Orbitron',monospace;font-size:0.9rem;color:var(--yellow);letter-spacing:3px;margin-bottom:12px;}
+  .code-reveal p{font-size:0.82rem;color:#c0a040;margin-bottom:16px;line-height:1.6;}
+  .unlock-code{font-family:'Share Tech Mono',monospace;font-size:2rem;color:var(--yellow);letter-spacing:8px;text-shadow:0 0 20px rgba(245,197,24,0.8);padding:12px 24px;background:rgba(245,197,24,0.05);border-radius:4px;display:inline-block;margin-bottom:16px;}
+  .next-hint{font-size:0.75rem;color:var(--text-dim);font-family:'Share Tech Mono',monospace;}
+  .home-btn{display:inline-block;margin-top:16px;font-family:'Share Tech Mono',monospace;font-size:0.72rem;letter-spacing:2px;color:var(--yellow);border:1px solid var(--yellow-dim);border-radius:3px;padding:8px 20px;text-decoration:none;transition:background 0.2s;}
+  .home-btn:hover{background:var(--yellow-dim);}
+</style>
+</head>
+<body>
+<div id="stars"></div>
+<div class="page">
+  <div class="task-header">
+    <a href="../index.html" class="back-link">← ZURÜCK ZUR STATION</a>
+    <div class="sector-badge">SEKTOR M-1 · BETA-KLASSE</div>
+    <div class="task-title">Unbekannte Koordinate bestimmen</div>
+    <div class="task-subtitle">Für welchen Wert von p liegt Punkt P in der Ebene?</div>
+  </div>
+
+  <div class="total-bar">TEILAUFGABEN: 4 &nbsp;|&nbsp; ALLE MÜSSEN KORREKT BEANTWORTET WERDEN</div>
+  <div class="task-progress">
+    <div class="prog-dot active" id="dot-0"></div>
+    <div class="prog-dot" id="dot-1"></div>
+    <div class="prog-dot" id="dot-2"></div>
+    <div class="prog-dot" id="dot-3"></div>
+  </div>
+
+  <div class="task-box">
+    <h3>▶ AUFGABE</h3>
+    <div class="task-text">Gegeben ist die Ebene \(E\):</div>
+    <div class="math-block">
+      \[E:\; \vec{x} = \begin{pmatrix}3\\0\\2\end{pmatrix} + r\cdot\begin{pmatrix}2\\1\\7\end{pmatrix} + s\cdot\begin{pmatrix}3\\2\\5\end{pmatrix}\]
+    </div>
+    <div class="task-text">Untersuche, für welchen Wert von \(p\) der Punkt \(P\) jeweils in der Ebene liegt.</div>
+  </div>
+
+  <!-- a) P(4|1|p) → r=-1, s=1 → p=0 -->
+  <div class="subtask" id="sub-0">
+    <div class="subtask-label">TEILAUFGABE a)</div>
+    <div class="subtask-question">Für welchen Wert von \(p\) liegt \(P(4\,|\,1\,|\,p)\) in der Ebene \(E\)?</div>
+    <div class="attempts" id="att-0">VERSUCHE: 0</div>
+    <div class="choices" id="ch-0">
+      <button class="choice-btn" onclick="answer(0,'A')">A) &nbsp; \(p = 0\)</button>
+      <button class="choice-btn" onclick="answer(0,'B')">B) &nbsp; \(p = 2\)</button>
+      <button class="choice-btn" onclick="answer(0,'C')">C) &nbsp; \(p = 5\)</button>
+      <button class="choice-btn" onclick="answer(0,'D')">D) &nbsp; kein solches \(p\) existiert</button>
+    </div>
+    <div class="feedback" id="fb-0"></div>
+  </div>
+
+  <!-- b) P(6|2|p) → r=0, s=1 → p=7 -->
+  <div class="subtask" id="sub-1">
+    <div class="subtask-label">TEILAUFGABE b)</div>
+    <div class="subtask-question">Für welchen Wert von \(p\) liegt \(P(6\,|\,2\,|\,p)\) in der Ebene \(E\)?</div>
+    <div class="attempts" id="att-1">VERSUCHE: 0</div>
+    <div class="choices" id="ch-1">
+      <button class="choice-btn" onclick="answer(1,'A')">A) &nbsp; \(p = 5\)</button>
+      <button class="choice-btn" onclick="answer(1,'B')">B) &nbsp; \(p = 9\)</button>
+      <button class="choice-btn" onclick="answer(1,'C')">C) &nbsp; \(p = 7\)</button>
+      <button class="choice-btn" onclick="answer(1,'D')">D) &nbsp; kein solches \(p\) existiert</button>
+    </div>
+    <div class="feedback" id="fb-1"></div>
+  </div>
+
+  <!-- c) P(p|2|-2) → r=-2, s=2 → p=5 -->
+  <div class="subtask" id="sub-2">
+    <div class="subtask-label">TEILAUFGABE c)</div>
+    <div class="subtask-question">Für welchen Wert von \(p\) liegt \(P(p\,|\,2\,|\,-2)\) in der Ebene \(E\)?</div>
+    <div class="attempts" id="att-2">VERSUCHE: 0</div>
+    <div class="choices" id="ch-2">
+      <button class="choice-btn" onclick="answer(2,'A')">A) &nbsp; \(p = 1\)</button>
+      <button class="choice-btn" onclick="answer(2,'B')">B) &nbsp; \(p = 5\)</button>
+      <button class="choice-btn" onclick="answer(2,'C')">C) &nbsp; kein solches \(p\) existiert</button>
+      <button class="choice-btn" onclick="answer(2,'D')">D) &nbsp; \(p = -2\)</button>
+    </div>
+    <div class="feedback" id="fb-2"></div>
+  </div>
+
+  <!-- d) P(5|1|p) → r=1, s=0 → p=9 -->
+  <div class="subtask" id="sub-3">
+    <div class="subtask-label">TEILAUFGABE d)</div>
+    <div class="subtask-question">Für welchen Wert von \(p\) liegt \(P(5\,|\,1\,|\,p)\) in der Ebene \(E\)?</div>
+    <div class="attempts" id="att-3">VERSUCHE: 0</div>
+    <div class="choices" id="ch-3">
+      <button class="choice-btn" onclick="answer(3,'A')">A) &nbsp; \(p = 4\)</button>
+      <button class="choice-btn" onclick="answer(3,'B')">B) &nbsp; kein solches \(p\) existiert</button>
+      <button class="choice-btn" onclick="answer(3,'C')">C) &nbsp; \(p = 9\)</button>
+      <button class="choice-btn" onclick="answer(3,'D')">D) &nbsp; \(p = 11\)</button>
+    </div>
+    <div class="feedback" id="fb-3"></div>
+  </div>
+
+  <div class="code-reveal" id="codeReveal">
+    <h3>⚡ SEKTOR M-1 FREIGEGEBEN</h3>
+    <p>Exzellent! Beta-Sektor M-1 entsperrt.<br>Notiere den Code für Sektor M-3:</p>
+    <div class="unlock-code">PLASMA1</div>
+    <div class="next-hint">→ GIBT DIESEN CODE BEI SEKTOR M-3 EIN</div>
+    <br>
+    <a href="../index.html" class="home-btn">← ZURÜCK ZUR STATION</a>
+  </div>
+</div>
+
+<script>
+// Verified: E = (3,0,2) + r(2,1,7) + s(3,2,5)
+// a) P(4|1|p): 2r+3s=1, r+2s=1 → r=-1,s=1 → p=2-7+5=0  ✓ A
+// b) P(6|2|p): 2r+3s=3, r+2s=2 → r=0,s=1 → p=2+0+5=7   ✓ C
+// c) P(p|2|−2): r+2s=2, 7r+5s=−4 → r=−2,s=2 → p=3−4+6=5 ✓ B
+// d) P(5|1|p): 2r+3s=2, r+2s=1 → r=1,s=0 → p=2+7+0=9   ✓ C
+const CORRECT = {0:'A', 1:'C', 2:'B', 3:'C'};
+
+const HINTS = {
+  0: 'Setze P(4|1|p) in die Ebenengleichung ein: 3+2r+3s = 4 und 0+r+2s = 1. ' +
+     'Löse dieses 2×2-LGS nach r und s auf. Berechne danach p = 2 + 7r + 5s.',
+  1: 'Setze P(6|2|p) ein. Aus den ersten zwei Koordinaten erhältst du: ' +
+     '2r+3s = 3 und r+2s = 2. Löse nach r und s auf und bestimme dann p.',
+  2: 'Setze P(p|2|−2) ein. Die 2. und 3. Koordinate geben dir: r+2s = 2 und ' +
+     '7r+5s = −4. Löse das LGS und berechne dann p aus der 1. Gleichung.',
+  3: 'Setze P(5|1|p) ein. Die ersten zwei Koordinaten liefern: 2r+3s = 2 und ' +
+     'r+2s = 1. Löse nach r und s und berechne p = 2 + 7r + 5s.'
+};
+const WRONG_MSG = [
+  'Noch nicht richtig. Stelle das lineare Gleichungssystem vollständig auf.',
+  'Nicht ganz. Hast du alle drei Koordinaten berücksichtigt?',
+  'Kontrolliere deine Rechnung – führe abschließend eine Probe durch.'
+];
+
+const solved = [false,false,false,false];
+const attempts = [0,0,0,0];
+
+function answer(idx, choice) {
+  if (solved[idx]) return;
+  attempts[idx]++;
+  document.getElementById('att-'+idx).textContent = 'VERSUCHE: '+attempts[idx];
+  const fb = document.getElementById('fb-'+idx);
+  if (choice === CORRECT[idx]) {
+    solved[idx] = true;
+    fb.className = 'feedback show correct-fb';
+    fb.innerHTML = '✅ <strong>Richtig!</strong>';
+    document.querySelectorAll(`#ch-${idx} .choice-btn`).forEach(b => b.classList.add('disabled'));
+    document.querySelectorAll(`#ch-${idx} .choice-btn`).forEach(b => {
+      if (b.textContent.trim().startsWith(choice+')')) b.classList.add('correct');
+    });
+    document.getElementById('dot-'+idx).classList.add('done');
+    if (idx+1 < 4) document.getElementById('dot-'+(idx+1)).classList.add('active');
+    checkAll();
+  } else {
+    fb.className = 'feedback show wrong-fb';
+    let msg = `❌ <strong>Leider falsch.</strong> ${WRONG_MSG[Math.min(attempts[idx]-1, WRONG_MSG.length-1)]}`;
+    if (attempts[idx] >= 2) msg += `<div class="hint">💡 <strong>Hinweis:</strong> ${HINTS[idx]}</div>`;
+    fb.innerHTML = msg;
+    document.querySelectorAll(`#ch-${idx} .choice-btn`).forEach(b => {
+      if (b.textContent.trim().startsWith(choice+')')) {
+        b.classList.add('wrong'); setTimeout(()=>b.classList.remove('wrong'), 1200);
+      }
+    });
+  }
+}
+
+function checkAll() {
+  if (solved.every(Boolean)) {
+    const s = JSON.parse(localStorage.getItem('kp7_solved')||'[]');
+    if (!s.includes('m1')) s.push('m1');
+    localStorage.setItem('kp7_solved', JSON.stringify(s));
+    const u = JSON.parse(localStorage.getItem('kp7_unlocked')||'["e1"]');
+    if (!u.includes('m3')) u.push('m3');
+    if (['m1','m2','m3','m4'].every(id=>s.includes(id)) && !u.includes('s1')) u.push('s1');
+    localStorage.setItem('kp7_unlocked', JSON.stringify(u));
+    setTimeout(()=>document.getElementById('codeReveal').classList.add('show'), 600);
+  }
+}
+
+function createStars(){const c=document.getElementById('stars');for(let i=0;i<120;i++){const el=document.createElement('div');el.className='star';const sz=Math.random()*2+.5;el.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${Math.random()*4+2}s;--delay:${Math.random()*4}s;--op:${Math.random()*.5+.1};`;c.appendChild(el);}}
+createStars();
+window.addEventListener('load', ()=>{
+  const s = JSON.parse(localStorage.getItem('kp7_solved')||'[]');
+  if (s.includes('m1')) {
+    [0,1,2,3].forEach(i=>{solved[i]=true; document.getElementById('dot-'+i).classList.add('done');});
+    document.getElementById('codeReveal').classList.add('show');
+  }
+});
+</script>
+</body>
+</html>

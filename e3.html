@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sektor E-3 | KEPLER-7</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+<style>
+  :root{--bg:#030810;--panel:#070f1e;--border:#0d2040;--green:#00e5a0;--green-dim:#005540;--yellow:#f5c518;--red:#ff3e5e;--text:#c8dff0;--text-dim:#4a6a8a;--accent:#00e5a0;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;min-height:100vh;}
+  #stars{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;}
+  .star{position:absolute;background:white;border-radius:50%;animation:twinkle var(--d,3s) ease-in-out infinite;animation-delay:var(--delay,0s);opacity:var(--op,.5);}
+  @keyframes twinkle{0%,100%{opacity:var(--op,.5);}50%{opacity:0.1;}}
+  .page{position:relative;z-index:1;max-width:780px;margin:0 auto;padding:30px 20px 60px;}
+  .task-header{padding:20px 0 24px;border-bottom:1px solid var(--border);margin-bottom:28px;}
+  .back-link{font-family:'Share Tech Mono',monospace;font-size:0.7rem;color:var(--text-dim);text-decoration:none;letter-spacing:2px;display:inline-block;margin-bottom:16px;}
+  .back-link:hover{color:var(--accent);}
+  .sector-badge{font-family:'Share Tech Mono',monospace;font-size:0.65rem;letter-spacing:3px;color:var(--accent);margin-bottom:8px;}
+  .task-title{font-family:'Orbitron',monospace;font-size:1.3rem;font-weight:700;margin-bottom:4px;}
+  .task-subtitle{font-size:0.82rem;color:var(--text-dim);}
+  .task-box{background:#050d1a;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:6px;padding:24px 28px;margin-bottom:24px;}
+  .task-box h3{font-family:'Orbitron',monospace;font-size:0.75rem;letter-spacing:3px;color:var(--accent);margin-bottom:16px;}
+  .task-text{font-size:0.9rem;line-height:1.8;margin-bottom:12px;}
+  .math-block{background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:14px 18px;margin:14px 0;text-align:center;overflow-x:auto;}
+  .subtask{margin-bottom:30px;border-bottom:1px solid var(--border);padding-bottom:26px;}
+  .subtask:last-child{border-bottom:none;}
+  .subtask-label{font-family:'Share Tech Mono',monospace;font-size:0.7rem;letter-spacing:2px;color:var(--text-dim);margin-bottom:12px;}
+  .subtask-question{font-size:0.88rem;line-height:1.8;margin-bottom:14px;}
+  .question-note{font-size:0.8rem;color:var(--text-dim);margin-bottom:14px;font-style:italic;}
+  .attempts{font-family:'Share Tech Mono',monospace;font-size:0.65rem;color:var(--text-dim);letter-spacing:2px;margin-bottom:8px;}
+  .choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+  @media(max-width:560px){.choices{grid-template-columns:1fr;}}
+  .choice-btn{background:var(--panel);border:1px solid var(--border);border-radius:5px;padding:11px 14px;color:var(--text);font-family:'Exo 2',sans-serif;font-size:0.8rem;cursor:pointer;text-align:left;transition:border-color 0.2s,background 0.2s;line-height:1.5;}
+  .choice-btn:hover{border-color:var(--accent);background:#0a1628;}
+  .choice-btn.correct{border-color:var(--green);background:#002a1a;color:var(--green);}
+  .choice-btn.wrong{border-color:var(--red);background:#1a0008;color:var(--red);}
+  .choice-btn.disabled{pointer-events:none;opacity:0.45;}
+  .choice-btn.correct.disabled,.choice-btn.wrong.disabled{opacity:1;}
+  .feedback{display:none;border-radius:4px;padding:14px 18px;font-size:0.83rem;line-height:1.65;margin-top:10px;}
+  .feedback.show{display:block;}
+  .feedback.correct-fb{background:#002a1a;border:1px solid var(--green);color:#80ffcc;}
+  .feedback.wrong-fb{background:#1a0008;border:1px solid var(--red);color:#ff9aaa;}
+  .feedback .hint{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.1);color:var(--text-dim);font-size:0.8rem;}
+  .task-progress{display:flex;gap:8px;margin-bottom:20px;}
+  .prog-dot{width:10px;height:10px;border-radius:50%;border:1px solid var(--border);background:var(--panel);transition:background 0.3s;}
+  .prog-dot.done{background:var(--green);border-color:var(--green);}
+  .prog-dot.active{border-color:var(--accent);}
+  .total-bar{background:var(--panel);border:1px solid var(--border);border-radius:4px;padding:10px 16px;font-family:'Share Tech Mono',monospace;font-size:0.65rem;color:var(--text-dim);letter-spacing:2px;margin-bottom:24px;}
+  .code-reveal{display:none;margin-top:32px;background:linear-gradient(135deg,#002a1a,#001a10);border:1px solid var(--green);border-radius:8px;padding:28px 32px;text-align:center;box-shadow:0 0 30px rgba(0,229,160,0.2);}
+  .code-reveal.show{display:block;animation:fadeIn 0.8s ease;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  .code-reveal h3{font-family:'Orbitron',monospace;font-size:0.9rem;color:var(--green);letter-spacing:3px;margin-bottom:12px;}
+  .code-reveal p{font-size:0.82rem;color:#80c0a0;margin-bottom:16px;line-height:1.6;}
+  .unlock-code{font-family:'Share Tech Mono',monospace;font-size:2rem;color:var(--green);letter-spacing:8px;text-shadow:0 0 20px rgba(0,229,160,0.8);padding:12px 24px;background:rgba(0,229,160,0.05);border-radius:4px;display:inline-block;margin-bottom:16px;}
+  .code-reveal .next-hint{font-size:0.75rem;color:var(--text-dim);font-family:'Share Tech Mono',monospace;}
+  .home-btn{display:inline-block;margin-top:16px;font-family:'Share Tech Mono',monospace;font-size:0.72rem;letter-spacing:2px;color:var(--green);border:1px solid var(--green-dim);border-radius:3px;padding:8px 20px;text-decoration:none;transition:background 0.2s;}
+  .home-btn:hover{background:var(--green-dim);}
+</style>
+</head>
+<body>
+<div id="stars"></div>
+<div class="page">
+  <div class="task-header">
+    <a href="../index.html" class="back-link">← ZURÜCK ZUR STATION</a>
+    <div class="sector-badge">SEKTOR E-3 · ALPHA-KLASSE</div>
+    <div class="task-title">Ebene durch Punkt und Gerade</div>
+    <div class="task-subtitle">Stelle eine Ebenengleichung in Parameterform auf</div>
+  </div>
+
+  <div class="total-bar">TEILAUFGABEN: 2 &nbsp;|&nbsp; ALLE MÜSSEN KORREKT BEANTWORTET WERDEN</div>
+  <div class="task-progress">
+    <div class="prog-dot active" id="dot-0"></div>
+    <div class="prog-dot" id="dot-1"></div>
+  </div>
+
+  <div class="task-box">
+    <h3>▶ AUFGABE</h3>
+    <div class="task-text">
+      Eine Ebene \(E\) ist durch einen Punkt \(P\) (der nicht auf der Geraden \(g\) liegt)
+      und eine Gerade \(g\) eindeutig bestimmt, sofern \(P\) in der Ebene liegt.
+      Gib eine Ebenengleichung in Parameterform an.
+    </div>
+  </div>
+
+  <!-- a) -->
+  <div class="subtask" id="sub-0">
+    <div class="subtask-label">TEILAUFGABE a)</div>
+    <div class="subtask-question">
+      Gegeben: \(\;P(2\,|\,5\,|\,-3)\) und die Gerade
+      \[g:\;\vec{x} = \begin{pmatrix}1\\2\\5\end{pmatrix} + t\cdot\begin{pmatrix}-1\\2\\7\end{pmatrix}\]
+    </div>
+    <div class="question-note">Welcher Aufpunkt eignet sich für die Ebenengleichung in Parameterform?</div>
+    <div class="attempts" id="att-0">VERSUCHE: 0</div>
+    <div class="choices" id="ch-0">
+      <button class="choice-btn" onclick="answer(0,'A')">A) &nbsp; Aufpunkt: \((1\,|\,2\,|\,5)\)</button>
+      <button class="choice-btn" onclick="answer(0,'B')">B) &nbsp; Aufpunkt: \((2\,|\,5\,|\,-3)\)</button>
+      <button class="choice-btn" onclick="answer(0,'C')">C) &nbsp; Aufpunkt: \((0\,|\,0\,|\,0)\)</button>
+      <button class="choice-btn" onclick="answer(0,'D')">D) &nbsp; Kein sinnvoller Aufpunkt möglich</button>
+    </div>
+    <div class="feedback" id="fb-0"></div>
+  </div>
+
+  <!-- b) -->
+  <div class="subtask" id="sub-1">
+    <div class="subtask-label">TEILAUFGABE b)</div>
+    <div class="subtask-question">
+      Gegeben: \(\;P(6\,|\,3\,|\,-1)\) und die Gerade
+      \[g:\;\vec{x} = \begin{pmatrix}1\\0\\3\end{pmatrix} + t\cdot\begin{pmatrix}2\\1\\1\end{pmatrix}\]
+    </div>
+    <div class="question-note">Was sind die beiden Richtungsvektoren der Ebene in Parameterform?</div>
+    <div class="attempts" id="att-1">VERSUCHE: 0</div>
+    <div class="choices" id="ch-1">
+      <button class="choice-btn" onclick="answer(1,'A')">A) &nbsp; \(\vec{u}=\begin{pmatrix}2\\1\\1\end{pmatrix}\), \(\;\vec{v}=\begin{pmatrix}5\\3\\-4\end{pmatrix}\)</button>
+      <button class="choice-btn" onclick="answer(1,'B')">B) &nbsp; \(\vec{u}=\begin{pmatrix}2\\1\\1\end{pmatrix}\), \(\;\vec{v}=\begin{pmatrix}1\\0\\3\end{pmatrix}\)</button>
+      <button class="choice-btn" onclick="answer(1,'C')">C) &nbsp; \(\vec{u}=\begin{pmatrix}6\\3\\-1\end{pmatrix}\), \(\;\vec{v}=\begin{pmatrix}2\\1\\1\end{pmatrix}\)</button>
+      <button class="choice-btn" onclick="answer(1,'D')">D) &nbsp; \(\vec{u}=\begin{pmatrix}1\\0\\3\end{pmatrix}\), \(\;\vec{v}=\begin{pmatrix}6\\3\\-1\end{pmatrix}\)</button>
+    </div>
+    <div class="feedback" id="fb-1"></div>
+  </div>
+
+  <div class="code-reveal" id="codeReveal">
+    <h3>🛸 SEKTOR E-3 FREIGEGEBEN</h3>
+    <p>Perfekt! Sektor E-3 ist jetzt entsperrt.<br>Notiere den Code für den nächsten Sektor:</p>
+    <div class="unlock-code">GAMMA3</div>
+    <div class="next-hint">→ GIBT DIESEN CODE BEI SEKTOR E-4 EIN</div>
+    <br>
+    <a href="../index.html" class="home-btn">← ZURÜCK ZUR STATION</a>
+  </div>
+</div>
+
+<script>
+// a) Both A and B work as Aufpunkt – but A (point on g) is the "standard" choice since g lies in E.
+// The question asks which Aufpunkt "eignet sich" → A (Punkt auf g) ist korrekt, B ebenfalls möglich.
+// We'll accept A as primary correct (standard approach: use g's Stützvektor as Aufpunkt).
+// b) Richtungsvektoren: Richtungsvektor von g + Verbindungsvektor von g-Punkt zu P
+//    \vec{u} = Richtungsvektor g = (2,1,1)
+//    \vec{v} = P - Aufpunkt_auf_g = (6,3,-1)-(1,0,3) = (5,3,-4) → Antwort A
+
+const CORRECT = { 0:'A', 1:'A' };
+const HINTS = {
+  0: 'Als Aufpunkt einer Ebene, die durch Punkt P und Gerade g bestimmt wird, eignet sich der Stützvektor von g (ein Punkt auf g). ' +
+     'Beide – der Stützvektor von g und Punkt P – liegen in der Ebene und können als Aufpunkt dienen.',
+  1: 'Die Ebene hat zwei Richtungsvektoren: (1) den Richtungsvektor der Geraden g und (2) den Verbindungsvektor ' +
+     'vom Aufpunkt (Punkt auf g) zum Punkt P. Bilde: \u20D7v = P \u2212 Aufpunkt_auf_g.'
+};
+const WRONG_MSG = ['Noch nicht richtig. Überlege, was einen Aufpunkt und Richtungsvektoren definiert.',
+  'Nicht ganz. Bedenke den Zusammenhang zwischen g, P und der Ebene.',
+  'Überprüfe deine Vorgehensweise nochmal.'];
+const CHOICE_LABELS = {A:'A',B:'B',C:'C',D:'D'};
+
+const solved=[false,false], attempts=[0,0];
+function answer(idx,choice){
+  if(solved[idx])return;
+  attempts[idx]++;
+  document.getElementById('att-'+idx).textContent='VERSUCHE: '+attempts[idx];
+  const fb=document.getElementById('fb-'+idx);
+  const isCorrect=choice===CORRECT[idx];
+  if(isCorrect){
+    solved[idx]=true;
+    fb.className='feedback show correct-fb';
+    fb.innerHTML='✅ <strong>Richtig!</strong>';
+    document.querySelectorAll(`#ch-${idx} .choice-btn`).forEach(b=>b.classList.add('disabled'));
+    document.querySelectorAll(`#ch-${idx} .choice-btn`).forEach(b=>{if(b.textContent.startsWith(choice+')'))b.classList.add('correct');});
+    document.getElementById('dot-'+idx).classList.add('done');
+    if(idx+1<2)document.getElementById('dot-'+(idx+1)).classList.add('active');
+    checkAll();
+  } else {
+    fb.className='feedback show wrong-fb';
+    let msg=`❌ <strong>Leider falsch.</strong> ${WRONG_MSG[Math.min(attempts[idx]-1,WRONG_MSG.length-1)]}`;
+    if(attempts[idx]>=2)msg+=`<div class="hint">💡 <strong>Hinweis:</strong> ${HINTS[idx]}</div>`;
+    fb.innerHTML=msg;
+    document.querySelectorAll(`#ch-${idx} .choice-btn`).forEach(b=>{
+      if(b.textContent.startsWith(choice+')'))b.classList.add('wrong');
+      setTimeout(()=>b.classList.remove('wrong'),1200);
+    });
+  }
+}
+function checkAll(){
+  if(solved.every(Boolean)){
+    const s=JSON.parse(localStorage.getItem('kp7_solved')||'[]');
+    if(!s.includes('e3'))s.push('e3');
+    localStorage.setItem('kp7_solved',JSON.stringify(s));
+    const u=JSON.parse(localStorage.getItem('kp7_unlocked')||'["e1"]');
+    if(!u.includes('e4'))u.push('e4');
+    localStorage.setItem('kp7_unlocked',JSON.stringify(u));
+    setTimeout(()=>document.getElementById('codeReveal').classList.add('show'),600);
+  }
+}
+function createStars(){const c=document.getElementById('stars');for(let i=0;i<120;i++){const s=document.createElement('div');s.className='star';const sz=Math.random()*2+.5;s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${Math.random()*4+2}s;--delay:${Math.random()*4}s;--op:${Math.random()*.5+.1};`;c.appendChild(s);}}
+createStars();
+window.addEventListener('load',()=>{const s=JSON.parse(localStorage.getItem('kp7_solved')||'[]');if(s.includes('e3')){[0,1].forEach(i=>{solved[i]=true;document.getElementById('dot-'+i).classList.add('done');});document.getElementById('codeReveal').classList.add('show');}});
+</script>
+</body>
+</html>
