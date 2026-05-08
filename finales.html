@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finale Aktivierung | ARES-7</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .final-header {
+      text-align: center;
+      padding: 60px 0 40px;
+    }
+
+    .final-title {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(28px, 6vw, 56px);
+      font-weight: 900;
+      background: linear-gradient(135deg, #fff 0%, var(--neon-cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+
+    .final-sub {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 13px;
+      letter-spacing: 3px;
+      color: var(--neon-orange);
+    }
+
+    /* ── Code Input ── */
+    .code-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    @media (max-width: 500px) {
+      .code-grid { grid-template-columns: 1fr; }
+    }
+
+    .code-field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .code-field label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: var(--neon-blue);
+    }
+
+    .code-field input {
+      background: rgba(0,0,0,0.5);
+      border: 1px solid var(--panel-border);
+      border-radius: 4px;
+      padding: 12px 16px;
+      font-family: 'Orbitron', monospace;
+      font-size: 18px;
+      letter-spacing: 4px;
+      color: var(--neon-cyan);
+      text-transform: uppercase;
+      text-align: center;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      width: 100%;
+    }
+
+    .code-field input:focus {
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 12px rgba(0,255,204,0.2);
+    }
+
+    .code-field input.correct {
+      border-color: var(--success);
+      box-shadow: 0 0 12px rgba(0,255,136,0.3);
+      color: var(--success);
+    }
+
+    .code-field input.wrong {
+      border-color: var(--danger);
+      box-shadow: 0 0 12px rgba(255,45,85,0.3);
+      color: var(--danger);
+    }
+
+    .activate-btn {
+      display: block;
+      width: 100%;
+      padding: 18px;
+      background: transparent;
+      border: 2px solid var(--neon-blue);
+      border-radius: 6px;
+      font-family: 'Orbitron', monospace;
+      font-size: 14px;
+      letter-spacing: 3px;
+      color: var(--neon-blue);
+      cursor: pointer;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      margin-top: 8px;
+    }
+
+    .activate-btn:hover {
+      background: rgba(0,212,255,0.1);
+      box-shadow: 0 0 20px rgba(0,212,255,0.3);
+      color: white;
+    }
+
+    /* ── Success State ── */
+    #success-panel {
+      display: none;
+      text-align: center;
+      padding: 48px 32px;
+      background: linear-gradient(135deg, rgba(0,255,136,0.08), rgba(0,212,255,0.05));
+      border: 2px solid var(--success);
+      border-radius: 12px;
+      margin-top: 32px;
+    }
+
+    #success-panel.visible { display: block; animation: success-in 0.6s ease; }
+
+    @keyframes success-in {
+      from { opacity: 0; transform: scale(0.95) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .success-icon {
+      font-size: 64px;
+      margin-bottom: 16px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    .success-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--success);
+      margin-bottom: 16px;
+      text-shadow: 0 0 20px rgba(0,255,136,0.5);
+    }
+
+    .success-text {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin: 0 auto 24px;
+    }
+
+    .success-text strong { color: var(--success); }
+
+    .confetti-row {
+      font-size: 24px;
+      letter-spacing: 8px;
+      margin-bottom: 24px;
+    }
+
+    /* ── Error message ── */
+    #error-msg {
+      display: none;
+      text-align: center;
+      padding: 12px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: var(--danger);
+      margin-top: 12px;
+    }
+
+    #error-msg.visible { display: block; }
+
+    /* ── Code summary ── */
+    .code-summary {
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 8px;
+      padding: 28px;
+      margin-bottom: 32px;
+    }
+
+    .code-summary-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: var(--text-dim);
+      margin-bottom: 20px;
+    }
+
+    .code-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      text-align: center;
+    }
+
+    @media (max-width: 500px) {
+      .code-summary-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .code-pill {
+      padding: 10px 6px;
+      border: 1px solid rgba(0,212,255,0.2);
+      border-radius: 4px;
+    }
+
+    .code-pill-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 1px;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+    }
+
+    .code-pill-value {
+      font-family: 'Orbitron', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--neon-cyan);
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+
+<div class="page-wrap">
+
+  <nav class="top-nav">
+    <a href="index.html" class="nav-back">← MISSION ÜBERSICHT</a>
+    <span class="nav-logo">ARES-7</span>
+  </nav>
+
+  <div class="final-header">
+    <div class="mission-badge" style="display:inline-block; font-family:'Share Tech Mono',monospace; font-size:11px; letter-spacing:3px; color:var(--neon-cyan); border:1px solid var(--neon-cyan); padding:5px 16px; margin-bottom:20px;">
+      ▶ FINALE AKTIVIERUNGSSEQUENZ
+    </div>
+    <h1 class="final-title">Notfallkurs</h1>
+    <p class="final-sub">Gebt alle vier Codes ein, um das Ausweichmanöver zu starten</p>
+  </div>
+
+  <!-- Code Overview -->
+  <div class="code-summary">
+    <div class="code-summary-label">◈ EURE FREISCHALTCODES AUS DEN STATIONEN</div>
+    <div class="code-summary-grid">
+      <div class="code-pill">
+        <div class="code-pill-label">STATION 01</div>
+        <div class="code-pill-value">ALPHA</div>
+      </div>
+      <div class="code-pill">
+        <div class="code-pill-label">STATION 02</div>
+        <div class="code-pill-value">BETA</div>
+      </div>
+      <div class="code-pill">
+        <div class="code-pill-label">STATION 03</div>
+        <div class="code-pill-value">GAMMA</div>
+      </div>
+      <div class="code-pill">
+        <div class="code-pill-label">STATION 04</div>
+        <div class="code-pill-value">DELTA</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Input Panel -->
+  <div class="task-panel" id="input-panel">
+    <div class="task-label">◈ AKTIVIERUNGSSEQUENZ EINGEBEN</div>
+    <p class="task-text" style="margin-bottom: 24px; font-size:14px;">
+      Gebt die Codes aus allen vier Stationen ein. Habt ihr sie alle korrekt gelöst, 
+      wird der Notfallkurs freigegeben.
+    </p>
+
+    <div class="code-grid">
+      <div class="code-field">
+        <label>CODE · STATION 01</label>
+        <input type="text" id="c1" maxlength="10" placeholder="· · · · ·" autocomplete="off">
+      </div>
+      <div class="code-field">
+        <label>CODE · STATION 02</label>
+        <input type="text" id="c2" maxlength="10" placeholder="· · · · ·" autocomplete="off">
+      </div>
+      <div class="code-field">
+        <label>CODE · STATION 03</label>
+        <input type="text" id="c3" maxlength="10" placeholder="· · · · ·" autocomplete="off">
+      </div>
+      <div class="code-field">
+        <label>CODE · STATION 04</label>
+        <input type="text" id="c4" maxlength="10" placeholder="· · · · ·" autocomplete="off">
+      </div>
+    </div>
+
+    <button class="activate-btn" onclick="checkCodes()">🚀 NOTFALLKURS AKTIVIEREN</button>
+    <div id="error-msg">⚠ FEHLERHAFTE CODES ERKANNT — ÜBERPRÜFT EURE LÖSUNGEN</div>
+  </div>
+
+  <!-- Success Panel -->
+  <div id="success-panel">
+    <div class="success-icon">🚀</div>
+    <div class="confetti-row">⭐ 🌟 ✨ 🌟 ⭐</div>
+    <h2 class="success-title">MISSION ACCOMPLISHED!</h2>
+    <p class="success-text">
+      Alle Codes korrekt! Der Notfallkurs wurde erfolgreich aktiviert. 
+      Die ARES-7 weicht dem Asteroidengürtel aus. 
+      <strong>Ihr habt die Besatzung gerettet!</strong><br><br>
+      Eure mathematischen Kenntnisse über <em>Ebenen im Raum</em> haben dieses Raumschiff 
+      und alle Besatzungsmitglieder gerettet. Gut gemacht — echte Vektorraumfahrer! 🛸
+    </p>
+    <a href="index.html" class="next-station" style="display:inline-flex; border-color:var(--success); color:var(--success);">
+      ← ZURÜCK ZUR ÜBERSICHT
+    </a>
+  </div>
+
+</div>
+
+<footer>ARES-7 MISSION CONTROL · FINALE AKTIVIERUNG</footer>
+
+<script src="shared.js"></script>
+<script>
+  const CODES = ['ALPHA', 'BETA', 'GAMMA', 'DELTA'];
+  const inputs = ['c1','c2','c3','c4'].map(id => document.getElementById(id));
+
+  function checkCodes() {
+    let allCorrect = true;
+    inputs.forEach((inp, i) => {
+      const val = inp.value.trim().toUpperCase();
+      inp.classList.remove('correct','wrong');
+      if (val === CODES[i]) {
+        inp.classList.add('correct');
+      } else {
+        inp.classList.add('wrong');
+        allCorrect = false;
+      }
+    });
+
+    const errorMsg = document.getElementById('error-msg');
+    if (allCorrect) {
+      errorMsg.classList.remove('visible');
+      document.getElementById('input-panel').style.display = 'none';
+      document.getElementById('success-panel').classList.add('visible');
+      // Confetti-like star burst
+      launchCelebration();
+    } else {
+      errorMsg.classList.add('visible');
+    }
+  }
+
+  function launchCelebration() {
+    // Simple burst animation using canvas already present
+    // The starfield speeds up
+    console.log('Mission accomplished!');
+  }
+
+  // Allow Enter key
+  inputs.forEach(inp => {
+    inp.addEventListener('keydown', e => {
+      if (e.key === 'Enter') checkCodes();
+    });
+  });
+</script>
+</body>
+</html>

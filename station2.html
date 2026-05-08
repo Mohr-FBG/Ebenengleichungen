@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Station 02 · Lagekontrolle | ARES-7</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+      options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-cml.js" async></script>
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+
+<div class="page-wrap">
+
+  <nav class="top-nav">
+    <a href="index.html" class="nav-back">← MISSION ÜBERSICHT</a>
+    <span class="nav-logo">ARES-7</span>
+  </nav>
+
+  <header class="station-header">
+    <div class="station-meta">
+      <span class="station-num">STATION 02 / 04</span>
+      <span class="station-badge lk">EBENEN IM RAUM</span>
+    </div>
+    <h1 class="station-title">Lagekontrolle</h1>
+    <p class="station-topic">Lage eines Punktes zur Ebene · Lage einer Geraden zur Ebene</p>
+  </header>
+
+  <div class="story-panel">
+    <div class="story-label">📡 EINGEHENDE TRANSMISSION</div>
+    <p>
+      Der Sensor hat das <strong>Trümmerfeld BETA</strong> identifiziert — eine riesige flache 
+      Gesteinsscheibe, die den Korridor blockiert. Die Ebene der Scheibe ist bekannt. 
+      Nun muss geprüft werden: Liegt die <strong>aktuelle Position der ARES-7</strong> 
+      innerhalb der Gefahrenzone (d.h. in der Ebene)? Und: Wird der geplante 
+      <strong>Kurs des Rettungspods</strong> (eine Gerade) die Ebene schneiden, darin liegen 
+      oder ihr parallel verlaufen? Nur so kann eine Evakuierungsroute freigegeben werden.
+    </p>
+  </div>
+
+  <div class="task-section">
+
+    <!-- Aufgabe A: Punkt -->
+    <div class="task-panel">
+      <div class="task-label">◈ AUFGABE A · POSITION DER ARES-7</div>
+      <p class="task-text">
+        Das Trümmerfeld BETA wird beschrieben durch die Ebene:
+      </p>
+      <div class="math-block">
+        E: &nbsp; 3x − 2y + z = 7
+      </div>
+      <p class="task-text">
+        Der Bordcomputer gibt folgende aktuelle Positionen aus:
+      </p>
+      <div class="math-block">
+        P₁ = (1 | 2 | 8) &nbsp;&nbsp;&nbsp;&nbsp; P₂ = (3 | 1 | 4) &nbsp;&nbsp;&nbsp;&nbsp; P₃ = (−1 | −2 | 2)
+      </div>
+      <ul class="subtasks">
+        <li>
+          <span class="subtask-letter">a)</span>
+          <span>Überprüft für jeden der drei Punkte, ob er in der Ebene $E$ liegt 
+          (Einsetzen in die Koordinatenform). Gebt an, ob die jeweilige Position 
+          gefährlich ist.</span>
+        </li>
+        <li>
+          <span class="subtask-letter">b)</span>
+          <span>Für welche Punkte gilt: der Punkt liegt auf der Seite des Normalenvektors 
+          (d.h. $3x-2y+z > 7$), auf der anderen Seite ($< 7$) oder genau in der Ebene? 
+          Erklärt, warum dies für die Navigation relevant ist.</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Aufgabe B: Gerade -->
+    <div class="task-panel">
+      <div class="task-label">◈ AUFGABE B · KURS DES RETTUNGSPODS</div>
+      <p class="task-text">
+        Der Rettungspod folgt der Geraden $g$. Untersucht das Verhältnis von $g$ zu $E$.
+      </p>
+      <div class="math-block">
+        E: &nbsp; 3x − 2y + z = 7<br><br>
+        g₁: &nbsp; $\vec{x} = \begin{pmatrix}1\\0\\0\end{pmatrix} + t\cdot\begin{pmatrix}1\\2\\-1\end{pmatrix}$
+        &nbsp;&nbsp;&nbsp; 
+        g₂: &nbsp; $\vec{x} = \begin{pmatrix}0\\1\\5\end{pmatrix} + t\cdot\begin{pmatrix}2\\3\\0\end{pmatrix}$
+      </div>
+      <ul class="subtasks">
+        <li>
+          <span class="subtask-letter">c)</span>
+          <span>Setzt die Geradengleichung $g_1$ in die Ebenengleichung $E$ ein. 
+          Was ergibt sich? Interpretiert das Ergebnis geometrisch: 
+          Schneidet, liegt in oder verläuft parallel zur Ebene?</span>
+        </li>
+        <li>
+          <span class="subtask-letter">d)</span>
+          <span>Führt dieselbe Untersuchung für $g_2$ durch. Bestimmt ggf. den Schnittpunkt mit $E$.</span>
+        </li>
+        <li>
+          <span class="subtask-letter">e)</span>
+          <span>Wie kann man <em>ohne Rechnung</em> allein durch einen Blick auf Richtungsvektor 
+          und Normalenvektor vorhersagen, ob eine Gerade die Ebene schneidet oder parallel zu ihr ist? 
+          Erklärt den Zusammenhang.</span>
+        </li>
+      </ul>
+
+      <div class="hint-box">
+        <strong>💡 SYSTEMHINWEIS</strong>
+        Für e): Überprüft $\vec{n} \cdot \vec{r} = ?$ (Skalarprodukt aus Normalenvektor und Richtungsvektor). 
+        Was bedeutet es, wenn dieses Produkt gleich null ist?
+      </div>
+    </div>
+
+    <!-- Spoiler -->
+    <button class="spoiler-toggle" data-target="solution2">▼ LÖSUNGSHINWEIS ANZEIGEN</button>
+    <div id="solution2" class="spoiler-content">
+      <div class="task-panel" style="border-color: rgba(255,204,0,0.3);">
+        <div class="task-label" style="color:var(--warning)">LÖSUNGSHINWEIS</div>
+        <p class="task-text" style="font-size:14px">
+          <strong style="color:var(--neon-cyan)">a)</strong>
+          $P_1$: $3(1)-2(2)+8 = 7$ ✓ → liegt in E (Gefahr!)<br>
+          $P_2$: $3(3)-2(1)+4 = 11 \neq 7$ → liegt nicht in E<br>
+          $P_3$: $3(-1)-2(-2)+2 = 3 \neq 7$ → liegt nicht in E
+        </p>
+        <p class="task-text" style="font-size:14px; margin-top:10px;">
+          <strong style="color:var(--neon-cyan)">c)</strong>
+          $g_1$ einsetzen: $3(1+t)-2(2t)+(-t) = 3+3t-4t-t = 3-2t = 7$ → $t = -2$ → Schnittpunkt bei $t=-2$: $S=(-1|-4|2)$
+        </p>
+        <p class="task-text" style="font-size:14px; margin-top:10px;">
+          <strong style="color:var(--neon-cyan)">d)</strong>
+          $g_2$: $\vec{n}\cdot\vec{r} = \begin{pmatrix}3\\-2\\1\end{pmatrix}\cdot\begin{pmatrix}2\\3\\0\end{pmatrix} = 6-6+0 = 0$ → Gerade parallel oder in der Ebene. 
+          Stützpunkt einsetzen: $3(0)-2(1)+5 = 3 \neq 7$ → parallel (kein Schnitt).
+        </p>
+        <p class="task-text" style="font-size:14px; margin-top:10px;">
+          <strong style="color:var(--neon-cyan)">e)</strong>
+          Ist $\vec{n}\cdot\vec{r} = 0$, so steht der Richtungsvektor senkrecht auf dem Normalenvektor 
+          → die Gerade verläuft parallel zur Ebene (oder liegt in ihr). Ist das Produkt $\neq 0$, gibt es genau einen Schnittpunkt.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Freischaltcode -->
+  <div class="solution-input-area">
+    <span class="input-label">◈ FREISCHALTCODE ERHALTEN</span>
+    <div class="code-display">
+      <div class="code-label">EURER CODE FÜR STATION 02 LAUTET:</div>
+      <div class="code-value">BETA</div>
+      <div class="code-hint">
+        Wenn ihr $P_1$ als einzigen Punkt in der Ebene identifiziert und den Schnittpunkt $S=(-1|-4|2)$ berechnet habt — notiert diesen Code!
+      </div>
+    </div>
+
+    <a href="station3.html" class="next-station">
+      WEITER ZU STATION 03 →
+    </a>
+  </div>
+
+</div>
+
+<footer>ARES-7 MISSION CONTROL · STATION 02 / 04</footer>
+
+<script src="shared.js"></script>
+</body>
+</html>

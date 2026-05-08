@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Station 04 · Abstandsberechnung | ARES-7</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+      options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-cml.js" async></script>
+  <style>
+    .danger-pulse {
+      animation: danger-glow 1.5s ease-in-out infinite;
+    }
+    @keyframes danger-glow {
+      0%, 100% { box-shadow: 0 0 10px rgba(255,45,85,0.3); border-color: rgba(255,45,85,0.5); }
+      50% { box-shadow: 0 0 25px rgba(255,45,85,0.6); border-color: rgba(255,45,85,0.9); }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+
+<div class="page-wrap">
+
+  <nav class="top-nav">
+    <a href="index.html" class="nav-back">← MISSION ÜBERSICHT</a>
+    <span class="nav-logo">ARES-7</span>
+  </nav>
+
+  <header class="station-header">
+    <div class="station-meta">
+      <span class="station-num">STATION 04 / 04 · FINALE</span>
+      <span class="station-badge" style="color:var(--neon-red); border-color:var(--neon-red);">▲ KRITISCH</span>
+    </div>
+    <h1 class="station-title">Abstandsberechnung</h1>
+    <p class="station-topic">Abstand Punkt–Ebene · Hesse'sche Normalform</p>
+  </header>
+
+  <div class="story-panel danger-pulse" style="border-left-color:var(--neon-red); border-color:rgba(255,45,85,0.5); background:linear-gradient(135deg, rgba(255,45,85,0.12), rgba(255,107,43,0.06));">
+    <div class="story-label" style="color:var(--neon-red)">⚠ NOTFALL · LETZTE WARNUNG</div>
+    <p>
+      Warnung an alle Stationen: Das Raumschiff <strong>ARES-7</strong> befindet sich auf 
+      kritischem Annäherungskurs an das <strong>Gefahrenfeld DELTA</strong>. 
+      Der Mindestabstand zum Überleben beträgt <strong>2,5 Einheiten (= 250 km)</strong>. 
+      Berechnet jetzt den exakten Abstand des Raumschiffs zur Gefahrenebene. 
+      Wenn der Abstand zu klein ist, muss sofort das Ausweichmanöver eingeleitet werden — 
+      dafür braucht ihr den finalen Freischaltcode dieser Station. 
+      <strong>Die Zeit läuft ab.</strong>
+    </p>
+  </div>
+
+  <div class="task-section">
+
+    <div class="task-panel">
+      <div class="task-label">◈ AUFGABE A · ABSTAND RAUMSCHIFF–GEFAHRENFELD</div>
+      <p class="task-text">
+        Das Gefahrenfeld DELTA wird durch folgende Ebene beschrieben:
+      </p>
+      <div class="math-block">
+        E: &nbsp; 2x + y − 2z = 6
+      </div>
+      <p class="task-text">
+        Die aktuelle Position der ARES-7 beträgt:
+      </p>
+      <div class="math-block">
+        P = (4 | 3 | −1)
+      </div>
+      <ul class="subtasks">
+        <li>
+          <span class="subtask-letter">a)</span>
+          <span>Berechnet den Abstand $d$ des Punktes $P$ zur Ebene $E$ 
+          mithilfe der <strong>Hesse'schen Normalform</strong>:
+          $$d(P, E) = \frac{|ax_P + by_P + cz_P - d_0|}{\sqrt{a^2+b^2+c^2}}$$
+          mit $E: ax+by+cz = d_0$.
+          </span>
+        </li>
+        <li>
+          <span class="subtask-letter">b)</span>
+          <span>Entscheidet: Ist das Raumschiff in Sicherheit (Abstand $\geq 2{,}5$) 
+          oder muss das Ausweichmanöver aktiviert werden?</span>
+        </li>
+        <li>
+          <span class="subtask-letter">c)</span>
+          <span>Gebt die Hesse'sche Normalform der Ebene $E$ explizit an 
+          (d.h. mit normiertem Normalenvektor $\hat{n}$ der Länge 1).</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="task-panel">
+      <div class="task-label">◈ AUFGABE B · AUSWEICHROUTE BERECHNEN</div>
+      <p class="task-text">
+        Um sicher an der Ebene vorbeizufliegen, sucht die ARES-7 den 
+        <strong>Lotfußpunkt</strong> — den Punkt auf der Ebene, 
+        der dem Raumschiff am nächsten liegt.
+      </p>
+      <div class="math-block">
+        E: &nbsp; 2x + y − 2z = 6 &nbsp;&nbsp;&nbsp;&nbsp; P = (4 | 3 | −1)
+      </div>
+      <ul class="subtasks">
+        <li>
+          <span class="subtask-letter">d)</span>
+          <span>Die Lotgerade durch $P$ senkrecht zu $E$ hat den Richtungsvektor $\vec{n} = (2|1|-2)^\top$. 
+          Stellt die Gleichung der Lotgeraden auf:
+          $g: \vec{x} = \vec{p} + t\cdot\vec{n}$</span>
+        </li>
+        <li>
+          <span class="subtask-letter">e)</span>
+          <span>Berechnet den Schnittpunkt der Lotgeraden mit $E$ (den Lotfußpunkt $L$) 
+          durch Einsetzen in die Ebenengleichung.</span>
+        </li>
+        <li>
+          <span class="subtask-letter">f)</span>
+          <span>Überprüft: Der Abstand $|\overrightarrow{PL}|$ muss mit eurem Ergebnis 
+          aus Aufgabe a) übereinstimmen.</span>
+        </li>
+      </ul>
+
+      <div class="hint-box">
+        <strong>💡 SYSTEMHINWEIS</strong>
+        Hesse'sche Normalform: Der Normalenvektor $\vec{n} = (2,1,-2)^\top$ hat die Länge 
+        $|\vec{n}| = \sqrt{4+1+4} = 3$. Die Formel für den Abstand lautet damit: 
+        $d = \dfrac{|2x_P + y_P - 2z_P - 6|}{3}$
+      </div>
+    </div>
+
+    <!-- Spoiler -->
+    <button class="spoiler-toggle" data-target="solution4">▼ LÖSUNGSHINWEIS ANZEIGEN</button>
+    <div id="solution4" class="spoiler-content">
+      <div class="task-panel" style="border-color: rgba(255,204,0,0.3);">
+        <div class="task-label" style="color:var(--warning)">LÖSUNGSHINWEIS</div>
+        <p class="task-text" style="font-size:14px">
+          <strong style="color:var(--neon-cyan)">a)</strong>
+          $d = \dfrac{|2\cdot4 + 1\cdot3 + (-2)\cdot(-1) - 6|}{\sqrt{4+1+4}} = \dfrac{|8+3+2-6|}{3} = \dfrac{7}{3} \approx 2{,}33$
+        </p>
+        <p class="task-text" style="font-size:14px; margin-top:10px;">
+          <strong style="color:var(--neon-cyan)">b)</strong>
+          $d \approx 2{,}33 < 2{,}5$ → <em style="color:var(--neon-red)">Ausweichmanöver muss aktiviert werden!</em>
+        </p>
+        <p class="task-text" style="font-size:14px; margin-top:10px;">
+          <strong style="color:var(--neon-cyan)">c)</strong>
+          HNF: $\hat{n} = \dfrac{1}{3}\begin{pmatrix}2\\1\\-2\end{pmatrix}$, 
+          also: $\dfrac{1}{3}(2x+y-2z) = 2$ bzw. $\dfrac{2}{3}x + \dfrac{1}{3}y - \dfrac{2}{3}z = 2$
+        </p>
+        <p class="task-text" style="font-size:14px; margin-top:10px;">
+          <strong style="color:var(--neon-cyan)">d/e)</strong>
+          Lotgerade: $\vec{x} = \begin{pmatrix}4\\3\\-1\end{pmatrix} + t\begin{pmatrix}2\\1\\-2\end{pmatrix}$
+          → Einsetzen: $2(4+2t)+(3+t)-2(-1-2t) = 6$ → $8+4t+3+t+2+4t=6$ → $9t = -7$ → $t = -\frac{7}{9}$
+          → $L = \left(\frac{22}{9}\,\Big|\,\frac{20}{9}\,\Big|\,\frac{5}{9}\right)$
+        </p>
+        <p class="task-text" style="font-size:14px; margin-top:10px;">
+          <strong style="color:var(--neon-cyan)">f)</strong>
+          $|t|\cdot|\vec{n}| = \frac{7}{9}\cdot 3 = \frac{7}{3}$ ✓ — stimmt überein.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Freischaltcode -->
+  <div class="solution-input-area">
+    <span class="input-label">◈ FINALER FREISCHALTCODE</span>
+    <div class="code-display" style="border-color: rgba(0,255,136,0.5); background: rgba(0,255,136,0.06);">
+      <div class="code-label">EURER CODE FÜR STATION 04 LAUTET:</div>
+      <div class="code-value">DELTA</div>
+      <div class="code-hint">
+        Wenn ihr $d = \frac{7}{3}$ berechnet habt und das Ausweichmanöver aktiviert — notiert diesen letzten Code!
+      </div>
+    </div>
+
+    <a href="finales.html" class="next-station" style="border-color: var(--success); color: var(--success);">
+      🚀 FINALE AKTIVIERUNG →
+    </a>
+  </div>
+
+</div>
+
+<footer>ARES-7 MISSION CONTROL · STATION 04 / 04 · FINALES</footer>
+
+<script src="shared.js"></script>
+</body>
+</html>

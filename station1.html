@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Station 01 · Koordinatenzentrale | ARES-7</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <!-- MathJax for math rendering -->
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+      options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-cml.js" async></script>
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+
+<div class="page-wrap">
+
+  <nav class="top-nav">
+    <a href="index.html" class="nav-back">← MISSION ÜBERSICHT</a>
+    <span class="nav-logo">ARES-7</span>
+  </nav>
+
+  <header class="station-header">
+    <div class="station-meta">
+      <span class="station-num">STATION 01 / 04</span>
+      <span class="station-badge lk">EBENEN IM RAUM</span>
+    </div>
+    <h1 class="station-title">Koordinatenzentrale</h1>
+    <p class="station-topic">Ebenengleichung aufstellen · Normalenform · Koordinatenform</p>
+  </header>
+
+  <!-- Story -->
+  <div class="story-panel">
+    <div class="story-label">📡 EINGEHENDE TRANSMISSION</div>
+    <p>
+      Der Bordcomputer meldet: Im Flugkorridor wurde ein flaches <strong>Asteroidentrümmerfeld</strong> detektiert. 
+      Die Navigationsdrohne hat drei Eckpunkte des Trümmerfelds vermessen und die Koordinaten übermittelt. 
+      Um den Kollisionskurs zu berechnen, benötigt die Steuereinheit die vollständige 
+      <strong>Ebenengleichung des Trümmerfelds</strong> — zuerst in Normalenform, dann in Koordinatenform. 
+      Ohne diese Gleichung kann kein Ausweichmanöver eingeleitet werden.
+    </p>
+  </div>
+
+  <!-- Task -->
+  <div class="task-section">
+    <div class="task-panel">
+      <div class="task-label">◈ AUFGABE · TRÜMMERFELD ALPHA</div>
+      <p class="task-text">
+        Die Drohne vermisst drei Punkte des Trümmerfelds. Ihr Koordinatensystem hat die Einheit „100 km".
+      </p>
+
+      <div class="math-block">
+        A = (2 | 1 | 3) &nbsp;&nbsp;&nbsp; B = (5 | 1 | 1) &nbsp;&nbsp;&nbsp; C = (2 | 4 | 0)
+      </div>
+
+      <ul class="subtasks">
+        <li>
+          <span class="subtask-letter">a)</span>
+          <span>Bestimmt zwei Richtungsvektoren der Ebene, die das Trümmerfeld beschreibt, 
+          indem ihr geeignete Differenzvektoren berechnet.</span>
+        </li>
+        <li>
+          <span class="subtask-letter">b)</span>
+          <span>Berechnet einen Normalenvektor $\vec{n}$ der Ebene mithilfe des Kreuzprodukts. 
+          Kontrolliert euer Ergebnis, indem ihr überprüft, dass $\vec{n}$ senkrecht auf beiden 
+          Richtungsvektoren steht.</span>
+        </li>
+        <li>
+          <span class="subtask-letter">c)</span>
+          <span>Stellt die Normalenform der Ebenengleichung auf: 
+          $\vec{n} \cdot (\vec{x} - \vec{p}) = 0$</span>
+        </li>
+        <li>
+          <span class="subtask-letter">d)</span>
+          <span>Wandelt die Normalenform in die <strong>Koordinatenform</strong> um 
+          (Form: $ax + by + cz = d$). Überprüft eure Gleichung, indem ihr die drei 
+          Punkte $A$, $B$ und $C$ einsetzt.</span>
+        </li>
+      </ul>
+
+      <div class="hint-box">
+        <strong>💡 SYSTEMHINWEIS</strong>
+        Das Kreuzprodukt zweier Vektoren 
+        $\vec{u} = \begin{pmatrix}u_1\\u_2\\u_3\end{pmatrix}$ und 
+        $\vec{v} = \begin{pmatrix}v_1\\v_2\\v_3\end{pmatrix}$ ist:
+        $\vec{u} \times \vec{v} = \begin{pmatrix}u_2 v_3 - u_3 v_2\\ u_3 v_1 - u_1 v_3\\ u_1 v_2 - u_2 v_1\end{pmatrix}$
+      </div>
+    </div>
+
+    <!-- Spoiler / Lösung -->
+    <button class="spoiler-toggle" data-target="solution1">▼ LÖSUNGSHINWEIS ANZEIGEN</button>
+    <div id="solution1" class="spoiler-content">
+      <div class="task-panel" style="border-color: rgba(255,204,0,0.3);">
+        <div class="task-label" style="color:var(--warning)">LÖSUNGSHINWEIS</div>
+        <p class="task-text" style="font-size:14px">
+          <strong style="color:var(--neon-cyan)">a)</strong> 
+          Richtungsvektoren: 
+          $\vec{AB} = B - A = \begin{pmatrix}3\\0\\-2\end{pmatrix}$, 
+          $\vec{AC} = C - A = \begin{pmatrix}0\\3\\-3\end{pmatrix}$
+        </p>
+        <p class="task-text" style="font-size:14px; margin-top:10px;">
+          <strong style="color:var(--neon-cyan)">b)</strong>
+          $\vec{n} = \vec{AB} \times \vec{AC} = \begin{pmatrix}0\cdot(-3)-(-2)\cdot3\\(-2)\cdot0-3\cdot(-3)\\3\cdot3-0\cdot0\end{pmatrix} = \begin{pmatrix}6\\9\\9\end{pmatrix}$
+          &nbsp;(oder vereinfacht: $\begin{pmatrix}2\\3\\3\end{pmatrix}$)
+        </p>
+        <p class="task-text" style="font-size:14px; margin-top:10px;">
+          <strong style="color:var(--neon-cyan)">c)</strong>
+          Normalenform: $\begin{pmatrix}2\\3\\3\end{pmatrix} \cdot \left(\vec{x} - \begin{pmatrix}2\\1\\3\end{pmatrix}\right) = 0$
+        </p>
+        <p class="task-text" style="font-size:14px; margin-top:10px;">
+          <strong style="color:var(--neon-cyan)">d)</strong>
+          Koordinatenform: $2x + 3y + 3z = 16$
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Freischaltcode -->
+  <div class="solution-input-area">
+    <span class="input-label">◈ FREISCHALTCODE ERHALTEN</span>
+    <div class="code-display">
+      <div class="code-label">EURER CODE FÜR STATION 01 LAUTET:</div>
+      <div class="code-value">ALPHA</div>
+      <div class="code-hint">
+        Wenn ihr $2x + 3y + 3z = 16$ erhalten habt — notiert diesen Code für die Finalseite!
+      </div>
+    </div>
+
+    <a href="station2.html" class="next-station">
+      WEITER ZU STATION 02 →
+    </a>
+  </div>
+
+</div>
+
+<footer>ARES-7 MISSION CONTROL · STATION 01 / 04</footer>
+
+<script src="shared.js"></script>
+</body>
+</html>

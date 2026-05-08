@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Station 03 · Ebenenschnitt | ARES-7</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+      options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-cml.js" async></script>
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+
+<div class="page-wrap">
+
+  <nav class="top-nav">
+    <a href="index.html" class="nav-back">← MISSION ÜBERSICHT</a>
+    <span class="nav-logo">ARES-7</span>
+  </nav>
+
+  <header class="station-header">
+    <div class="station-meta">
+      <span class="station-num">STATION 03 / 04</span>
+      <span class="station-badge lk">EBENEN IM RAUM</span>
+    </div>
+    <h1 class="station-title">Ebenenschnitt</h1>
+    <p class="station-topic">Schnittgerade zweier Ebenen · Lage zweier Ebenen</p>
+  </header>
+
+  <div class="story-panel">
+    <div class="story-label">📡 EINGEHENDE TRANSMISSION</div>
+    <p>
+      Kritische Entdeckung: Im Sektor GAMMA existieren zwei große 
+      <strong>Asteroidenfelder</strong> — Ebene $E_1$ und Ebene $E_2$. 
+      Wo sich diese beiden Felder schneiden, entsteht ein 
+      <strong>schmaler, freier Durchflugskanal</strong> — genau die Schnittgerade. 
+      Nur wenn die Besatzung diese Schnittgerade berechnet, kann die ARES-7 
+      sicher durch den Sektor navigieren. Gleichzeitig muss geprüft werden, 
+      ob zwei weitere Ebenen überhaupt eine Schnittgerade bilden — 
+      oder ob sie parallel sind.
+    </p>
+  </div>
+
+  <div class="task-section">
+
+    <div class="task-panel">
+      <div class="task-label">◈ AUFGABE A · DURCHFLUGSKANAL GAMMA</div>
+      <p class="task-text">
+        Die beiden Asteroidenfelder werden durch folgende Ebenen beschrieben:
+      </p>
+      <div class="math-block">
+        E₁: &nbsp; x + 2y − z = 4<br>
+        E₂: &nbsp; 2x − y + z = 1
+      </div>
+      <ul class="subtasks">
+        <li>
+          <span class="subtask-letter">a)</span>
+          <span>Überprüft zunächst, ob $E_1$ und $E_2$ parallel sind. 
+          Begründet eure Antwort anhand der Normalenvektoren.</span>
+        </li>
+        <li>
+          <span class="subtask-letter">b)</span>
+          <span>Berechnet die Schnittgerade $g$ von $E_1$ und $E_2$, 
+          indem ihr das entstehende Gleichungssystem löst. 
+          Setzt dazu einen Parameter $t$ für eine der Variablen und drückt 
+          die anderen beiden durch $t$ aus.</span>
+        </li>
+        <li>
+          <span class="subtask-letter">c)</span>
+          <span>Stellt die Schnittgerade in der Form 
+          $\vec{x} = \vec{p} + t\cdot\vec{r}$ dar. 
+          Überprüft euer Ergebnis: Der Stützpunkt und ein weiterer Punkt 
+          der Geraden (z.B. für $t=1$) müssen in beiden Ebenengleichungen die 
+          Gleichung erfüllen.</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="task-panel">
+      <div class="task-label">◈ AUFGABE B · LAGEBESCHREIBUNG</div>
+      <p class="task-text">
+        Im Sensornetz werden zwei weitere Ebenenpaare detektiert. 
+        Bestimmt die gegenseitige Lage, ohne die Schnittgerade vollständig zu berechnen.
+      </p>
+      <div class="math-block">
+        E₃: &nbsp; 2x − 4y + 2z = 6 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E₄: &nbsp; x − 2y + z = 5<br><br>
+        E₅: &nbsp; x + y − z = 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E₆: &nbsp; 2x + 2y − 2z = 4
+      </div>
+      <ul class="subtasks">
+        <li>
+          <span class="subtask-letter">d)</span>
+          <span>Untersucht die Lage von $E_3$ und $E_4$: 
+          Sind sie parallel, identisch oder schneiden sie sich? 
+          Begründet anhand der Normalenvektoren und der Gleichungen.</span>
+        </li>
+        <li>
+          <span class="subtask-letter">e)</span>
+          <span>Untersucht ebenso $E_5$ und $E_6$. Was fällt euch auf?</span>
+        </li>
+        <li>
+          <span class="subtask-letter">f)</span>
+          <span>Fasst zusammen: Welche drei Möglichkeiten gibt es für die gegenseitige 
+          Lage zweier Ebenen im Raum? Nennt jeweils ein Kriterium zur Unterscheidung.</span>
+        </li>
+      </ul>
+
+      <div class="hint-box">
+        <strong>💡 SYSTEMHINWEIS</strong>
+        Zwei Ebenen sind parallel, wenn ihre Normalenvektoren Vielfache voneinander sind. 
+        Sind sie identisch, so ist zusätzlich auch der Abstandsterm proportional. 
+        Für die Schnittgerade: Löst das LGS mit zwei Gleichungen und drei Unbekannten — 
+        ein freier Parameter $t$ bleibt übrig.
+      </div>
+    </div>
+
+    <!-- Spoiler -->
+    <button class="spoiler-toggle" data-target="solution3">▼ LÖSUNGSHINWEIS ANZEIGEN</button>
+    <div id="solution3" class="spoiler-content">
+      <div class="task-panel" style="border-color: rgba(255,204,0,0.3);">
+        <div class="task-label" style="color:var(--warning)">LÖSUNGSHINWEIS</div>
+        <p class="task-text" style="font-size:14px">
+          <strong style="color:var(--neon-cyan)">a)</strong>
+          $\vec{n_1} = (1,2,-1)^\top$, $\vec{n_2} = (2,-1,1)^\top$ — kein Vielfaches ⇒ nicht parallel ⇒ Schnittgerade existiert.
+        </p>
+        <p class="task-text" style="font-size:14px; margin-top:10px;">
+          <strong style="color:var(--neon-cyan)">b/c)</strong>
+          Addition $E_1+E_2$: $3x+y = 5$ → $y = 5-3x$. In $E_1$: $z = x+2(5-3x)-4 = -5x+6$. 
+          Mit $x=t$: Schnittgerade: 
+          $\vec{x} = \begin{pmatrix}0\\5\\6\end{pmatrix} + t\begin{pmatrix}1\\-3\\-5\end{pmatrix}$
+        </p>
+        <p class="task-text" style="font-size:14px; margin-top:10px;">
+          <strong style="color:var(--neon-cyan)">d)</strong>
+          $E_3$: $n_3 = 2(1,-2,1)^\top$, $E_4$: $n_4 = (1,-2,1)^\top$ → parallel. 
+          Aber $E_3$ entspricht $x-2y+z=3$ und $E_4$ ist $x-2y+z=5$ → <em>echt parallel</em> (kein Schnitt).
+        </p>
+        <p class="task-text" style="font-size:14px; margin-top:10px;">
+          <strong style="color:var(--neon-cyan)">e)</strong>
+          $E_6 = 2\cdot E_5$ (Normalenvektor und Abstand proportional) → <em>identisch</em> (unendlich viele Schnittgeraden).
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Freischaltcode -->
+  <div class="solution-input-area">
+    <span class="input-label">◈ FREISCHALTCODE ERHALTEN</span>
+    <div class="code-display">
+      <div class="code-label">EURER CODE FÜR STATION 03 LAUTET:</div>
+      <div class="code-value">GAMMA</div>
+      <div class="code-hint">
+        Wenn ihr die Schnittgerade mit Richtungsvektor $(1|-3|-5)^\top$ und Stützpunkt $(0|5|6)^\top$ erhalten habt — notiert diesen Code!
+      </div>
+    </div>
+
+    <a href="station4.html" class="next-station">
+      WEITER ZU STATION 04 →
+    </a>
+  </div>
+
+</div>
+
+<footer>ARES-7 MISSION CONTROL · STATION 03 / 04</footer>
+
+<script src="shared.js"></script>
+</body>
+</html>
