@@ -447,7 +447,7 @@
       <div class="card-title">Punkt in der Ebene?</div>
       <div class="card-desc">Untersuche, ob ein Punkt Q in einer gegebenen Parameterform-Ebene liegt.</div>
       <div class="card-status status-open" id="status-e1"><span class="status-dot"></span> OFFEN</div>
-      <a href="aufgaben/e1.html" class="card-btn btn-green" id="btn-e1" onclick="this.href=taskUrl('e1')">→ STARTEN</a>
+      <a href="e1.html" class="card-btn btn-green" id="btn-e1" onclick="this.href=taskUrl('e1')">→ STARTEN</a>
     </div>
 
     <div class="task-card card-green" id="card-e2">
@@ -720,7 +720,7 @@ const BASE_PATH = (() => {
 })();
 
 function taskUrl(id) {
-  return BASE_PATH + 'aufgaben/' + id + '.html';
+  return id + '.html';
 }
 
 // On load

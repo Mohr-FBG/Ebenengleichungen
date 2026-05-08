@@ -63,7 +63,7 @@
 <div id="stars"></div>
 <div class="page">
   <div class="task-header">
-    <a href="javascript:void(0)" onclick="goHome()" class="back-link">← ZURÜCK ZUR STATION</a>
+    <a href="index.html" class="back-link">← ZURÜCK ZUR STATION</a>
     <div class="sector-badge">SEKTOR E-3 · ALPHA-KLASSE</div>
     <div class="task-title">Ebene durch Punkt und Gerade</div>
     <div class="task-subtitle">Stelle eine Ebenengleichung in Parameterform auf</div>
@@ -126,7 +126,7 @@
     <div class="unlock-code">GAMMA3</div>
     <div class="next-hint">→ GIBT DIESEN CODE BEI SEKTOR E-4 EIN</div>
     <br>
-    <a href="javascript:void(0)" onclick="goHome()" class="home-btn">← ZURÜCK ZUR STATION</a>
+    <a href="index.html" class="home-btn">← ZURÜCK ZUR STATION</a>
   </div>
 </div>
 
@@ -187,11 +187,6 @@ function checkAll(){
     localStorage.setItem('kp7_unlocked',JSON.stringify(u));
     setTimeout(()=>document.getElementById('codeReveal').classList.add('show'),600);
   }
-}
-function goHome() {
-  const p = window.location.pathname;
-  const dir = p.substring(0, p.lastIndexOf("/aufgaben/"));
-  window.location.href = dir + "/index.html";
 }
 function createStars(){const c=document.getElementById('stars');for(let i=0;i<120;i++){const s=document.createElement('div');s.className='star';const sz=Math.random()*2+.5;s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${Math.random()*4+2}s;--delay:${Math.random()*4}s;--op:${Math.random()*.5+.1};`;c.appendChild(s);}}
 createStars();
