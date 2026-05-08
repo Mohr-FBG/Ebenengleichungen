@@ -173,7 +173,7 @@
   <div class="victory" id="victory">
     <div class="victory-icon">🚀</div>
     <h2>MISSION ERFOLGREICH!</h2>
-    <p>Raumstation KEPLER-7 ist vollständig reaktiviert. Alle Navigationssysteme sind wieder online. Du hast alle 9 Sicherheitssektoren erfolgreich entsperrt und die Raumstation gerettet!</p>
+    <p>Fantastische Leistung! Alle finalen Sicherheitsprüfungen bestanden. Raumstation KEPLER-7 ist vollständig reaktiviert!</p>
     <div class="victory-stats">
       <div class="stat">
         <div class="stat-val">9</div>
@@ -188,7 +188,7 @@
         <div class="stat-label">MISSION DONE</div>
       </div>
     </div>
-    <a href="index.html" class="home-btn-victory">← ZURÜCK ZUR STATION</a>
+    <a href="gewonnen.html" class="home-btn-victory">🏆 ZUR ABSCHLUSSSEITE →</a>
   </div>
 </div>
 
@@ -253,6 +253,8 @@ function checkAll() {
       document.getElementById('victory').classList.add('show');
       launchParticles();
     }, 600);
+    // Auto-redirect to celebration page after 4 seconds
+    setTimeout(()=>{ window.location.href = 'gewonnen.html'; }, 4000);
   }
 }
 

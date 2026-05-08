@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission erfolgreich | KEPLER-7</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #030810; --panel: #070f1e; --border: #0d2040;
+    --green: #00e5a0; --green-dim: #005540;
+    --yellow: #f5c518; --yellow-dim: #4a3a00;
+    --red: #ff3e5e; --blue: #00b4d8;
+    --text: #c8dff0; --text-dim: #4a6a8a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: 'Exo 2', sans-serif;
+    min-height: 100vh; overflow-x: hidden;
+    display: flex; flex-direction: column; align-items: center;
+  }
+
+  /* Stars */
+  #stars { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; }
+  .star { position:absolute; background:white; border-radius:50%;
+    animation: twinkle var(--d,3s) ease-in-out infinite;
+    animation-delay: var(--delay,0s); opacity: var(--op,.5); }
+  @keyframes twinkle { 0%,100%{opacity:var(--op,.5);}50%{opacity:0.1;} }
+
+  /* Confetti canvas */
+  #confetti { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1; }
+
+  /* Content */
+  .content {
+    position: relative; z-index: 2;
+    max-width: 700px; width: 100%;
+    padding: 50px 24px 80px;
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center;
+  }
+
+  /* Animated rocket */
+  .rocket-wrap {
+    font-size: 4.5rem;
+    margin-bottom: 8px;
+    animation: launch 3s ease-in-out infinite;
+  }
+  @keyframes launch {
+    0%   { transform: translateY(0) rotate(-5deg); }
+    30%  { transform: translateY(-18px) rotate(5deg); }
+    60%  { transform: translateY(-8px) rotate(-3deg); }
+    100% { transform: translateY(0) rotate(-5deg); }
+  }
+
+  /* Station badge */
+  .station-badge {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 4px;
+    color: var(--green); margin-bottom: 24px;
+    animation: pulse-green 2.5s ease-in-out infinite;
+  }
+  @keyframes pulse-green { 0%,100%{opacity:1;} 50%{opacity:0.5;} }
+
+  /* Main headline */
+  h1 {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, var(--green) 0%, var(--blue) 50%, var(--yellow) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+  }
+  .subtitle-hero {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.9rem; letter-spacing: 3px;
+    color: var(--text-dim); margin-bottom: 40px;
+  }
+
+  /* Big praise box */
+  .praise-box {
+    background: linear-gradient(135deg, #050e1c 0%, #030810 100%);
+    border: 1px solid var(--green);
+    border-radius: 12px;
+    padding: 32px 36px;
+    margin-bottom: 32px;
+    box-shadow: 0 0 40px rgba(0,229,160,0.15), 0 0 80px rgba(0,229,160,0.05);
+    width: 100%;
+  }
+  .praise-box p {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: #a8d8c0;
+  }
+  .praise-box p strong { color: var(--green); }
+
+  /* Stats row */
+  .stats {
+    display: flex; justify-content: center; gap: 28px;
+    flex-wrap: wrap; margin-bottom: 36px; width: 100%;
+  }
+  .stat-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 28px;
+    min-width: 110px;
+    position: relative; overflow: hidden;
+  }
+  .stat-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  }
+  .stat-card.green::before { background: var(--green); box-shadow: 0 0 10px var(--green); }
+  .stat-card.yellow::before { background: var(--yellow); box-shadow: 0 0 10px var(--yellow); }
+  .stat-card.red::before { background: var(--red); box-shadow: 0 0 10px var(--red); }
+  .stat-val {
+    font-family: 'Orbitron', monospace;
+    font-size: 2rem; font-weight: 900;
+    margin-bottom: 4px;
+  }
+  .stat-card.green .stat-val { color: var(--green); }
+  .stat-card.yellow .stat-val { color: var(--yellow); }
+  .stat-card.red .stat-val { color: var(--red); }
+  .stat-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 2px; color: var(--text-dim);
+  }
+
+  /* Skill badges */
+  .skills {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    justify-content: center; margin-bottom: 40px; width: 100%;
+  }
+  .skill-badge {
+    background: #0a1628;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 7px 16px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.68rem; letter-spacing: 1px;
+    color: var(--text-dim);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .skill-badge span { font-size: 0.9rem; }
+
+  /* Certificate strip */
+  .certificate {
+    background: linear-gradient(135deg, #0a1a00 0%, #001a10 100%);
+    border: 1px solid var(--green);
+    border-radius: 8px;
+    padding: 24px 32px;
+    margin-bottom: 36px;
+    width: 100%;
+    position: relative;
+  }
+  .certificate::before, .certificate::after {
+    content: '✦'; font-size: 1.2rem; color: var(--green); opacity: 0.4;
+    position: absolute; top: 16px;
+  }
+  .certificate::before { left: 16px; }
+  .certificate::after { right: 16px; }
+  .cert-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 4px;
+    color: var(--text-dim); margin-bottom: 10px;
+  }
+  .cert-text {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.85rem; color: var(--green);
+    letter-spacing: 1px; line-height: 1.6;
+  }
+
+  /* Buttons */
+  .btn-row { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .btn-primary {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.78rem; letter-spacing: 3px;
+    color: var(--bg);
+    background: var(--green);
+    border: none; border-radius: 4px;
+    padding: 13px 28px; cursor: pointer;
+    text-decoration: none; display: inline-block;
+    transition: opacity 0.2s, transform 0.1s;
+    font-weight: 700;
+  }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+  .btn-secondary {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.78rem; letter-spacing: 3px;
+    color: var(--green); border: 1px solid var(--green-dim);
+    background: none; border-radius: 4px;
+    padding: 12px 24px; cursor: pointer;
+    text-decoration: none; display: inline-block;
+    transition: background 0.2s;
+  }
+  .btn-secondary:hover { background: var(--green-dim); }
+
+  /* Footer */
+  .footer-note {
+    margin-top: 48px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 3px;
+    color: #1a3a5a;
+  }
+</style>
+</head>
+<body>
+
+<div id="stars"></div>
+<canvas id="confetti"></canvas>
+
+<div class="content">
+
+  <div class="rocket-wrap">🚀</div>
+  <div class="station-badge">✦ RAUMSTATION KEPLER-7 · MISSION ABGESCHLOSSEN ✦</div>
+
+  <h1>Mission erfolgreich!</h1>
+  <div class="subtitle-hero">ALLE SYSTEME REAKTIVIERT</div>
+
+  <div class="praise-box">
+    <p>
+      Unglaubliche Leistung! Du hast alle <strong>9 Sektoren</strong> der Raumstation KEPLER-7
+      erfolgreich entsperrt und die Navigationssysteme vollständig reaktiviert.<br><br>
+      Du hast bewiesen, dass du <strong>Ebenengleichungen in Parameterform</strong> sicher
+      aufstellen, analysieren und anwenden kannst — von einfachen Punkt-in-Ebene-Prüfungen
+      bis hin zu anspruchsvollen Aufgaben über identische Ebenen und kritische Parameter.<br><br>
+      Die Raumstation ist gerettet. 🌌
+    </p>
+  </div>
+
+  <div class="stats">
+    <div class="stat-card green">
+      <div class="stat-val">4</div>
+      <div class="stat-label">ALPHA-SEKTOREN</div>
+    </div>
+    <div class="stat-card yellow">
+      <div class="stat-val">4</div>
+      <div class="stat-label">BETA-SEKTOREN</div>
+    </div>
+    <div class="stat-card red">
+      <div class="stat-val">1</div>
+      <div class="stat-label">GAMMA-SEKTOR</div>
+    </div>
+  </div>
+
+  <div class="skills">
+    <div class="skill-badge"><span>✅</span> Punkt in Ebene prüfen</div>
+    <div class="skill-badge"><span>✅</span> Ebene durch 3 Punkte</div>
+    <div class="skill-badge"><span>✅</span> Ebene durch Punkt & Gerade</div>
+    <div class="skill-badge"><span>✅</span> Schnitt zweier Geraden</div>
+    <div class="skill-badge"><span>✅</span> Unbekannte Koordinate bestimmen</div>
+    <div class="skill-badge"><span>✅</span> Identische Ebenen untersuchen</div>
+    <div class="skill-badge"><span>✅</span> Lagebeziehungen beurteilen</div>
+    <div class="skill-badge"><span>✅</span> Kritische Parameter ermitteln</div>
+  </div>
+
+  <div class="certificate">
+    <div class="cert-label">▶ ABSCHLUSSZERTIFIKAT · ANALYTISCHE GEOMETRIE</div>
+    <div class="cert-text">
+      Ebenen im Raum — Parameterform<br>
+      Alle Aufgaben erfolgreich abgeschlossen
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <a href="index.html" class="btn-primary">← ZURÜCK ZUR STATION</a>
+    <button class="btn-secondary" onclick="resetAndReplay()">↺ NOCHMALS SPIELEN</button>
+  </div>
+
+  <div class="footer-note">KEPLER-7 · ESCAPE ROOM · ANALYTISCHE GEOMETRIE · EBENEN IN PARAMETERFORM</div>
+
+</div>
+
+<script>
+// ── Confetti ──────────────────────────────────────────────
+const canvas = document.getElementById('confetti');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+
+const COLORS = ['#00e5a0','#f5c518','#ff3e5e','#00b4d8','#a78bfa','#ffffff'];
+const particles = [];
+
+class Particle {
+  constructor() { this.reset(true); }
+  reset(init = false) {
+    this.x = Math.random() * canvas.width;
+    this.y = init ? Math.random() * canvas.height - canvas.height : -10;
+    this.w = Math.random() * 8 + 4;
+    this.h = Math.random() * 4 + 2;
+    this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+    this.speed = Math.random() * 2.5 + 1;
+    this.angle = Math.random() * Math.PI * 2;
+    this.spin = (Math.random() - 0.5) * 0.15;
+    this.drift = (Math.random() - 0.5) * 1.2;
+    this.opacity = Math.random() * 0.7 + 0.3;
+  }
+  update() {
+    this.y += this.speed;
+    this.x += this.drift;
+    this.angle += this.spin;
+    if (this.y > canvas.height + 20) this.reset();
+  }
+  draw() {
+    ctx.save();
+    ctx.globalAlpha = this.opacity;
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.angle);
+    ctx.fillStyle = this.color;
+    ctx.fillRect(-this.w/2, -this.h/2, this.w, this.h);
+    ctx.restore();
+  }
+}
+
+for (let i = 0; i < 120; i++) particles.push(new Particle());
+
+function animateConfetti() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animateConfetti);
+}
+animateConfetti();
+
+// ── Stars ─────────────────────────────────────────────────
+function createStars() {
+  const c = document.getElementById('stars');
+  for (let i = 0; i < 140; i++) {
+    const el = document.createElement('div');
+    el.className = 'star';
+    const sz = Math.random() * 2.5 + 0.5;
+    el.style.cssText = `width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${Math.random()*4+2}s;--delay:${Math.random()*4}s;--op:${Math.random()*.5+.1};`;
+    c.appendChild(el);
+  }
+}
+createStars();
+
+// ── Reset & Replay ────────────────────────────────────────
+function resetAndReplay() {
+  if (confirm('Möchtest du wirklich von vorne beginnen? Dein gesamter Fortschritt wird zurückgesetzt.')) {
+    localStorage.removeItem('kp7_solved');
+    localStorage.removeItem('kp7_unlocked');
+    window.location.href = 'index.html';
+  }
+}
+</script>
+</body>
+</html>

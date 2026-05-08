@@ -13,34 +13,38 @@
   #stars{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;}
   .star{position:absolute;background:white;border-radius:50%;animation:twinkle var(--d,3s) ease-in-out infinite;animation-delay:var(--delay,0s);opacity:var(--op,.5);}
   @keyframes twinkle{0%,100%{opacity:var(--op,.5);}50%{opacity:0.1;}}
-  .page{position:relative;z-index:1;max-width:780px;margin:0 auto;padding:30px 20px 60px;}
+  .page{position:relative;z-index:1;max-width:820px;margin:0 auto;padding:30px 20px 60px;}
   .task-header{padding:20px 0 24px;border-bottom:1px solid var(--border);margin-bottom:28px;}
   .back-link{font-family:'Share Tech Mono',monospace;font-size:0.7rem;color:var(--text-dim);text-decoration:none;letter-spacing:2px;display:inline-block;margin-bottom:16px;}
   .back-link:hover{color:var(--accent);}
   .sector-badge{font-family:'Share Tech Mono',monospace;font-size:0.65rem;letter-spacing:3px;color:var(--accent);margin-bottom:8px;}
   .task-title{font-family:'Orbitron',monospace;font-size:1.3rem;font-weight:700;margin-bottom:4px;}
   .task-subtitle{font-size:0.82rem;color:var(--text-dim);}
-  .task-box{background:#050d1a;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:6px;padding:24px 28px;margin-bottom:24px;}
-  .task-box h3{font-family:'Orbitron',monospace;font-size:0.75rem;letter-spacing:3px;color:var(--accent);margin-bottom:16px;}
-  .task-text{font-size:0.9rem;line-height:1.8;margin-bottom:12px;}
-  .subtask{margin-bottom:30px;border-bottom:1px solid var(--border);padding-bottom:26px;}
+  .task-box{background:#050d1a;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:6px;padding:22px 26px;margin-bottom:24px;}
+  .task-box h3{font-family:'Orbitron',monospace;font-size:0.75rem;letter-spacing:3px;color:var(--accent);margin-bottom:12px;}
+  .task-text{font-size:0.88rem;line-height:1.8;}
+  .section-divider{font-family:'Share Tech Mono',monospace;font-size:0.7rem;letter-spacing:3px;color:var(--accent);margin:32px 0 16px;padding-bottom:8px;border-bottom:1px solid rgba(0,229,160,0.2);}
+  .geraden-box{background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:14px 18px;margin-bottom:20px;text-align:center;overflow-x:auto;}
+  .subtask{margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid #0a1a2a;}
   .subtask:last-child{border-bottom:none;}
-  .subtask-label{font-family:'Share Tech Mono',monospace;font-size:0.7rem;letter-spacing:2px;color:var(--text-dim);margin-bottom:12px;}
-  .subtask-question{font-size:0.88rem;line-height:1.8;margin-bottom:14px;}
+  .subtask-label{font-family:'Share Tech Mono',monospace;font-size:0.68rem;letter-spacing:2px;color:var(--text-dim);margin-bottom:10px;}
   .attempts{font-family:'Share Tech Mono',monospace;font-size:0.65rem;color:var(--text-dim);letter-spacing:2px;margin-bottom:8px;}
-  .choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+  .choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
   @media(max-width:560px){.choices{grid-template-columns:1fr;}}
-  .choice-btn{background:var(--panel);border:1px solid var(--border);border-radius:5px;padding:11px 14px;color:var(--text);font-family:'Exo 2',sans-serif;font-size:0.8rem;cursor:pointer;text-align:left;transition:border-color 0.2s,background 0.2s;line-height:1.5;}
+  .choice-btn{background:var(--panel);border:1px solid var(--border);border-radius:5px;padding:10px 13px;color:var(--text);font-family:'Exo 2',sans-serif;font-size:0.78rem;cursor:pointer;text-align:left;transition:border-color 0.2s,background 0.2s;line-height:1.5;}
   .choice-btn:hover{border-color:var(--accent);background:#0a1628;}
   .choice-btn.correct{border-color:var(--green);background:#002a1a;color:var(--green);}
   .choice-btn.wrong{border-color:var(--red);background:#1a0008;color:var(--red);}
   .choice-btn.disabled{pointer-events:none;opacity:0.45;}
   .choice-btn.correct.disabled,.choice-btn.wrong.disabled{opacity:1;}
-  .feedback{display:none;border-radius:4px;padding:14px 18px;font-size:0.83rem;line-height:1.65;margin-top:10px;}
+  .feedback{display:none;border-radius:4px;padding:12px 16px;font-size:0.82rem;line-height:1.65;margin-bottom:14px;}
   .feedback.show{display:block;}
   .feedback.correct-fb{background:#002a1a;border:1px solid var(--green);color:#80ffcc;}
   .feedback.wrong-fb{background:#1a0008;border:1px solid var(--red);color:#ff9aaa;}
-  .feedback .hint{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.1);color:var(--text-dim);font-size:0.8rem;}
+  .feedback .hint{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.1);color:var(--text-dim);font-size:0.79rem;}
+  .plane-part{display:none;margin-top:8px;}
+  .plane-part.show{display:block;animation:fadeSlide 0.5s ease;}
+  @keyframes fadeSlide{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
   .task-progress{display:flex;gap:8px;margin-bottom:20px;}
   .prog-dot{width:10px;height:10px;border-radius:50%;border:1px solid var(--border);background:var(--panel);transition:background 0.3s;}
   .prog-dot.done{background:var(--green);border-color:var(--green);}
@@ -52,43 +56,50 @@
   .code-reveal h3{font-family:'Orbitron',monospace;font-size:0.9rem;color:var(--green);letter-spacing:3px;margin-bottom:12px;}
   .code-reveal p{font-size:0.82rem;color:#80c0a0;margin-bottom:16px;line-height:1.6;}
   .unlock-code{font-family:'Share Tech Mono',monospace;font-size:2rem;color:var(--green);letter-spacing:8px;text-shadow:0 0 20px rgba(0,229,160,0.8);padding:12px 24px;background:rgba(0,229,160,0.05);border-radius:4px;display:inline-block;margin-bottom:16px;}
-  .code-reveal .next-hint{font-size:0.75rem;color:var(--text-dim);font-family:'Share Tech Mono',monospace;}
+  .next-hint{font-size:0.75rem;color:var(--text-dim);font-family:'Share Tech Mono',monospace;}
   .home-btn{display:inline-block;margin-top:16px;font-family:'Share Tech Mono',monospace;font-size:0.72rem;letter-spacing:2px;color:var(--green);border:1px solid var(--green-dim);border-radius:3px;padding:8px 20px;text-decoration:none;transition:background 0.2s;}
   .home-btn:hover{background:var(--green-dim);}
-  .bonus-info{background:#060f1c;border:1px solid var(--border);border-radius:4px;padding:12px 16px;font-size:0.78rem;color:var(--text-dim);margin-top:8px;line-height:1.6;}
 </style>
 </head>
 <body>
 <div id="stars"></div>
 <div class="page">
+
   <div class="task-header">
     <a href="index.html" class="back-link">← ZURÜCK ZUR STATION</a>
     <div class="sector-badge">SEKTOR E-4 · ALPHA-KLASSE</div>
     <div class="task-title">Geraden & Schnittebenen</div>
-    <div class="task-subtitle">Prüfe Schnitt zweier Geraden und stelle eine gemeinsame Ebene auf</div>
+    <div class="task-subtitle">Prüfe den Schnitt zweier Geraden — stelle bei Schnitt eine gemeinsame Ebene in Parameterform auf</div>
   </div>
 
-  <div class="total-bar">TEILAUFGABEN: 2 &nbsp;|&nbsp; ALLE MÜSSEN KORREKT BEANTWORTET WERDEN</div>
+  <div class="total-bar">TEILAUFGABEN: 4 &nbsp;|&nbsp; ALLE MÜSSEN KORREKT BEANTWORTET WERDEN</div>
   <div class="task-progress">
     <div class="prog-dot active" id="dot-0"></div>
     <div class="prog-dot" id="dot-1"></div>
+    <div class="prog-dot" id="dot-2"></div>
+    <div class="prog-dot" id="dot-3"></div>
   </div>
 
   <div class="task-box">
     <h3>▶ AUFGABE</h3>
     <div class="task-text">
       Prüfe, ob sich die Geraden \(g_1\) und \(g_2\) schneiden.
-      Gib eine Ebenengleichung in Parameterform an, die beide Geraden enthält, wenn sie sich schneiden.
+      Gib anschließend eine Ebenengleichung in <strong>Parameterform</strong> an, die beide Geraden enthält.
     </div>
   </div>
 
-  <!-- a) -->
+  <!-- ══════════════════════════════════════ -->
+  <!--          TEILAUFGABE a)               -->
+  <!-- ══════════════════════════════════════ -->
+  <div class="section-divider">▶ TEILAUFGABE a)</div>
+
+  <div class="geraden-box">
+    \[g_1:\;\vec{x} = \begin{pmatrix}1\\1\\2\end{pmatrix} + t\cdot\begin{pmatrix}2\\3\\1\end{pmatrix}\qquad\qquad g_2:\;\vec{x} = \begin{pmatrix}3\\4\\3\end{pmatrix} + t\cdot\begin{pmatrix}1\\0\\1\end{pmatrix}\]
+  </div>
+
+  <!-- a-1: Schneiden sich die Geraden? -->
   <div class="subtask" id="sub-0">
-    <div class="subtask-label">TEILAUFGABE a)</div>
-    <div class="subtask-question">
-      \[g_1:\;\vec{x} = \begin{pmatrix}1\\1\\2\end{pmatrix} + t\cdot\begin{pmatrix}2\\3\\1\end{pmatrix}\qquad g_2:\;\vec{x} = \begin{pmatrix}3\\4\\3\end{pmatrix} + t\cdot\begin{pmatrix}1\\0\\1\end{pmatrix}\]
-      Schneiden sich die Geraden?
-    </div>
+    <div class="subtask-label">SCHRITT 1 — Schneiden sich \(g_1\) und \(g_2\)?</div>
     <div class="attempts" id="att-0">VERSUCHE: 0</div>
     <div class="choices" id="ch-0">
       <button class="choice-btn" onclick="answer(0,'A')">A) &nbsp; Ja, sie schneiden sich</button>
@@ -99,103 +110,182 @@
     <div class="feedback" id="fb-0"></div>
   </div>
 
-  <!-- b) -->
-  <div class="subtask" id="sub-1">
-    <div class="subtask-label">TEILAUFGABE b)</div>
-    <div class="subtask-question">
-      \[g_1:\;\vec{x} = \begin{pmatrix}2\\0\\2\end{pmatrix} + t\cdot\begin{pmatrix}1\\1\\1\end{pmatrix}\qquad g_2:\;\vec{x} = \begin{pmatrix}0\\-2\\0\end{pmatrix} + t\cdot\begin{pmatrix}1\\2\\3\end{pmatrix}\]
-      Schneiden sich die Geraden?
+  <!-- a-2: Ebenengleichung (erscheint erst nach richtigem Schnitt) -->
+  <div class="plane-part" id="plane-0">
+    <div class="subtask" id="sub-1">
+      <div class="subtask-label">SCHRITT 2 — Welche Ebene enthält beide Geraden?</div>
+      <div class="attempts" id="att-1">VERSUCHE: 0</div>
+      <div class="choices" id="ch-1">
+        <button class="choice-btn" onclick="answer(1,'A')">A) &nbsp;\(\vec{x}=\begin{pmatrix}1\\1\\2\end{pmatrix}+r\cdot\begin{pmatrix}2\\3\\1\end{pmatrix}+s\cdot\begin{pmatrix}1\\0\\1\end{pmatrix}\)</button>
+        <button class="choice-btn" onclick="answer(1,'B')">B) &nbsp;\(\vec{x}=\begin{pmatrix}3\\4\\3\end{pmatrix}+r\cdot\begin{pmatrix}2\\3\\1\end{pmatrix}+s\cdot\begin{pmatrix}3\\4\\3\end{pmatrix}\)</button>
+        <button class="choice-btn" onclick="answer(1,'C')">C) &nbsp;\(\vec{x}=\begin{pmatrix}1\\1\\2\end{pmatrix}+r\cdot\begin{pmatrix}2\\3\\1\end{pmatrix}+s\cdot\begin{pmatrix}2\\3\\1\end{pmatrix}\)</button>
+        <button class="choice-btn" onclick="answer(1,'D')">D) &nbsp;\(\vec{x}=\begin{pmatrix}1\\1\\2\end{pmatrix}+r\cdot\begin{pmatrix}1\\0\\0\end{pmatrix}+s\cdot\begin{pmatrix}1\\0\\1\end{pmatrix}\)</button>
+      </div>
+      <div class="feedback" id="fb-1"></div>
     </div>
-    <div class="attempts" id="att-1">VERSUCHE: 0</div>
-    <div class="choices" id="ch-1">
-      <button class="choice-btn" onclick="answer(1,'A')">A) &nbsp; Ja, sie schneiden sich</button>
-      <button class="choice-btn" onclick="answer(1,'B')">B) &nbsp; Nein, sie sind parallel</button>
-      <button class="choice-btn" onclick="answer(1,'C')">C) &nbsp; Nein, sie sind windschief</button>
-      <button class="choice-btn" onclick="answer(1,'D')">D) &nbsp; Sie sind identisch</button>
+  </div>
+
+  <!-- ══════════════════════════════════════ -->
+  <!--          TEILAUFGABE b)               -->
+  <!-- ══════════════════════════════════════ -->
+  <div class="section-divider">▶ TEILAUFGABE b)</div>
+
+  <div class="geraden-box">
+    \[g_1:\;\vec{x} = \begin{pmatrix}1\\-1\\3\end{pmatrix} + t\cdot\begin{pmatrix}2\\2\\-2\end{pmatrix}\qquad\qquad g_2:\;\vec{x} = \begin{pmatrix}-1\\1\\5\end{pmatrix} + t\cdot\begin{pmatrix}3\\1\\-3\end{pmatrix}\]
+  </div>
+
+  <!-- b-1: Schneiden sich die Geraden? -->
+  <div class="subtask" id="sub-2">
+    <div class="subtask-label">SCHRITT 1 — Schneiden sich \(g_1\) und \(g_2\)?</div>
+    <div class="attempts" id="att-2">VERSUCHE: 0</div>
+    <div class="choices" id="ch-2">
+      <button class="choice-btn" onclick="answer(2,'A')">A) &nbsp; Ja, sie schneiden sich</button>
+      <button class="choice-btn" onclick="answer(2,'B')">B) &nbsp; Nein, sie sind parallel</button>
+      <button class="choice-btn" onclick="answer(2,'C')">C) &nbsp; Nein, sie sind windschief</button>
+      <button class="choice-btn" onclick="answer(2,'D')">D) &nbsp; Sie sind identisch</button>
     </div>
-    <div class="feedback" id="fb-1"></div>
+    <div class="feedback" id="fb-2"></div>
+  </div>
+
+  <!-- b-2: Ebenengleichung -->
+  <div class="plane-part" id="plane-1">
+    <div class="subtask" id="sub-3">
+      <div class="subtask-label">SCHRITT 2 — Welche Ebene enthält beide Geraden?</div>
+      <div class="attempts" id="att-3">VERSUCHE: 0</div>
+      <div class="choices" id="ch-3">
+        <button class="choice-btn" onclick="answer(3,'A')">A) &nbsp;\(\vec{x}=\begin{pmatrix}1\\-1\\3\end{pmatrix}+r\cdot\begin{pmatrix}2\\2\\-2\end{pmatrix}+s\cdot\begin{pmatrix}3\\1\\-3\end{pmatrix}\)</button>
+        <button class="choice-btn" onclick="answer(3,'B')">B) &nbsp;\(\vec{x}=\begin{pmatrix}1\\-1\\3\end{pmatrix}+r\cdot\begin{pmatrix}2\\2\\-2\end{pmatrix}+s\cdot\begin{pmatrix}-1\\1\\5\end{pmatrix}\)</button>
+        <button class="choice-btn" onclick="answer(3,'C')">C) &nbsp;\(\vec{x}=\begin{pmatrix}1\\-1\\3\end{pmatrix}+r\cdot\begin{pmatrix}1\\1\\-1\end{pmatrix}+s\cdot\begin{pmatrix}3\\1\\-3\end{pmatrix}\)</button>
+        <button class="choice-btn" onclick="answer(3,'D')">D) &nbsp;\(\vec{x}=\begin{pmatrix}-1\\1\\5\end{pmatrix}+r\cdot\begin{pmatrix}2\\2\\-2\end{pmatrix}+s\cdot\begin{pmatrix}1\\-1\\2\end{pmatrix}\)</button>
+      </div>
+      <div class="feedback" id="fb-3"></div>
+    </div>
   </div>
 
   <div class="code-reveal" id="codeReveal">
     <h3>🛸 SEKTOR E-4 FREIGEGEBEN</h3>
     <p>Alle Alpha-Sektoren abgeschlossen! Der Beta-Bereich ist jetzt zugänglich.<br>Notiere den Code für Sektor M-1:</p>
     <div class="unlock-code">DELTA4</div>
-    <div class="next-hint">→ GIBT DIESEN CODE BEI SEKTOR M-1 EIN &nbsp;|&nbsp; DANACH: CODE ORBIT77 FÜR M-2</div>
+    <div class="next-hint">→ CODE BEI SEKTOR M-1 EINGEBEN &nbsp;|&nbsp; CODE ORBIT77 SCHALTET M-2 FREI</div>
     <br>
     <a href="index.html" class="home-btn">← ZURÜCK ZUR STATION</a>
   </div>
 </div>
 
 <script>
-// a) g1: (1,1,2)+t(2,3,1), g2: (3,4,3)+s(1,0,1)
-//    LGS: 1+2t=3+s → 2t-s=2; 1+3t=4 → t=1; 2+t=3+s → s=0
-//    t=1: g1=(3,4,3); s=0: g2=(3,4,3) ✓ → JA, Schnitt
-// b) g1: (2,0,2)+t(1,1,1), g2: (0,-2,0)+s(1,2,3)
-//    2+t=s, t=s-2; 0+t=-2+2s → s-2=-2+2s → s=0, t=-2
-//    Check: 2+(-2)=0; g2=0 ✓; 2+(-2)=0; g2: 0-4=-4 ≠ 0+(-2)=-2 
-//    Wait: 2+t=2+(-2)=0, g2_x=0+0·1=0 ✓
-//    t=-2: g1_y=0+(-2)=-2; g2_y=-2+0·2=-2 ✓
-//    g1_z=2+(-2)=0; g2_z=0+0·3=0 ✓ → YES they intersect at (0,-2,0)
-//    Actually let me recheck b: both give windschief according to original problem
-//    g1=(2,0,2)+t(1,1,1), g2=(0,-2,0)+s(1,2,3)
-//    2+t=s (i), t=-2+2s (ii), 2+t=3s (iii)
-//    From (i): s=2+t; sub in (ii): t=-2+2(2+t)=2+2t → -t=2 → t=-2, s=0
-//    Check (iii): 2+(-2)=0; 3·0=0 ✓ → Schnitt bei t=-2, s=0 → P=(0,-2,0)
-//    So b) also JA (intersect) - corrected
-const CORRECT={0:'A',1:'A'};
-const HINTS={
-  0:'Stelle ein Gleichungssystem auf, indem du die Geradengleichungen gleichsetzt: g₁ = g₂. ' +
-     'Das gibt dir 3 Gleichungen mit 2 Unbekannten (t und s). Prüfe, ob das LGS eine Lösung hat.',
-  1:'Gleichsetzen: g₁(t) = g₂(s). Löse das entstehende LGS. Wenn das System widerspruchsfrei lösbar ist, ' +
-     'schneiden sich die Geraden. Setze die gefundenen Parameter zur Probe ein.'
-};
-const WRONG_MSG=['Noch nicht richtig. Stelle das LGS systematisch auf.',
-  'Nicht ganz. Überprüfe alle drei Gleichungen des LGS.',
-  'Kontrolliere die Probe: Setze t und s in beide Geradengleichungen ein.'];
+// Lösungen (verifiziert):
+// a-Schnitt: t=1, s=0 → S=(3,4,3) → JA → A
+// a-Ebene:   x=(1,1,2)+r(2,3,1)+s(1,0,1) → A
+//   B: RV2=(3,4,3) ist Aufpunkt, kein Richtungsvektor → FALSCH
+//   C: beide RV identisch → kein Ebene → FALSCH
+//   D: RV1=(1,0,0) gehört nicht zu g1 → FALSCH
+//
+// b-Schnitt: LGS: 2t-3s=-2, 2t-s=2 → s=2, t=2 → S=(5,3,-1) → JA → A
+// b-Ebene:   x=(1,-1,3)+r(2,2,-2)+s(3,1,-3) → A
+//   B: RV2=(-1,1,5) ist Aufpunkt von g2, kein Richtungsvektor → FALSCH
+//   C: RV1=(1,1,-1) ist linear abhängig zu (2,2,-2) → keine Ebene → FALSCH
+//   D: RV2=(1,-1,2) gehört nicht zu den Geraden → FALSCH
 
-const solved=[false,false],attempts=[0,0];
-function answer(idx,choice){
-  if(solved[idx])return;
+const CORRECT = { 0:'A', 1:'A', 2:'A', 3:'A' };
+
+const HINTS = {
+  0: 'Setze g₁(t) = g₂(s) und stelle 3 Gleichungen auf. ' +
+     'Aus der 2. Gleichung (1+3t = 4) erhältst du t direkt. ' +
+     'Berechne dann s aus einer anderen Gleichung und führe die Probe durch.',
+  1: 'Die Ebene enthält beide Geraden. Wähle einen Aufpunkt (z.B. den Stützvektor von g₁) ' +
+     'und nimm die Richtungsvektoren beider Geraden als Richtungsvektoren der Ebene. ' +
+     'Achte darauf, dass die RV linear unabhängig sind – keiner darf ein Vielfaches des anderen sein.',
+  2: 'Setze g₁(t) = g₂(s) an: das ergibt 3 Gleichungen mit 2 Unbekannten. ' +
+     'Subtrahiere Gleichung I von Gleichung II, um s zu bestimmen. ' +
+     'Berechne dann t und prüfe alle drei Gleichungen.',
+  3: 'Verwende den Stützvektor einer Geraden als Aufpunkt der Ebene. ' +
+     'Die Richtungsvektoren der Ebene sind die Richtungsvektoren der beiden Geraden. ' +
+     'Prüfe: Ist RV1 ein Vielfaches von RV2? Falls ja, beschreibt die Gleichung keine Ebene.'
+};
+
+const WRONG_MSG = [
+  'Noch nicht. Stelle das LGS sorgfältig auf und löse es Schritt für Schritt.',
+  'Nicht korrekt. Überlege: Was sind die Richtungsvektoren einer Ebene durch zwei Geraden?',
+  'Noch falsch. Berechne t und s aus den ersten zwei Gleichungen und führe die Probe mit der dritten durch.',
+  'Nicht richtig. Überprüfe, ob beide Richtungsvektoren wirklich zu den Geraden gehören und linear unabhängig sind.'
+];
+
+const solved = [false, false, false, false];
+const attempts = [0, 0, 0, 0];
+
+function answer(idx, choice) {
+  if (solved[idx]) return;
   attempts[idx]++;
-  document.getElementById('att-'+idx).textContent='VERSUCHE: '+attempts[idx];
-  const fb=document.getElementById('fb-'+idx);
-  if(choice===CORRECT[idx]){
-    solved[idx]=true;
-    fb.className='feedback show correct-fb';
-    fb.innerHTML='✅ <strong>Richtig!</strong> Die Geraden schneiden sich.';
-    document.querySelectorAll(`#ch-${idx} .choice-btn`).forEach(b=>b.classList.add('disabled'));
-    document.querySelectorAll(`#ch-${idx} .choice-btn`).forEach(b=>{if(b.textContent.startsWith(choice+')'))b.classList.add('correct');});
+  document.getElementById('att-'+idx).textContent = 'VERSUCHE: ' + attempts[idx];
+  const fb = document.getElementById('fb-'+idx);
+
+  if (choice === CORRECT[idx]) {
+    solved[idx] = true;
+    // Mark correct button
+    document.querySelectorAll(`#ch-${idx} .choice-btn`).forEach(b => {
+      b.classList.add('disabled');
+      if (b.textContent.trim().startsWith(choice+')')) b.classList.add('correct');
+    });
+    // Update progress dot
     document.getElementById('dot-'+idx).classList.add('done');
-    if(idx+1<2)document.getElementById('dot-'+(idx+1)).classList.add('active');
+    if (idx + 1 < 4) document.getElementById('dot-'+(idx+1)).classList.add('active');
+
+    if (idx === 0) {
+      fb.className = 'feedback show correct-fb';
+      fb.innerHTML = '✅ <strong>Richtig!</strong> Die Geraden schneiden sich. Wähle jetzt die passende Ebenengleichung:';
+      const p = document.getElementById('plane-0');
+      p.classList.add('show');
+      if (window.MathJax) MathJax.typesetPromise([p]);
+    } else if (idx === 2) {
+      fb.className = 'feedback show correct-fb';
+      fb.innerHTML = '✅ <strong>Richtig!</strong> Die Geraden schneiden sich. Wähle jetzt die passende Ebenengleichung:';
+      const p = document.getElementById('plane-1');
+      p.classList.add('show');
+      if (window.MathJax) MathJax.typesetPromise([p]);
+    } else {
+      fb.className = 'feedback show correct-fb';
+      fb.innerHTML = '✅ <strong>Richtig!</strong> Das ist eine korrekte Ebenengleichung in Parameterform.';
+    }
     checkAll();
   } else {
-    fb.className='feedback show wrong-fb';
-    let msg=`❌ <strong>Leider falsch.</strong> ${WRONG_MSG[Math.min(attempts[idx]-1,WRONG_MSG.length-1)]}`;
-    if(attempts[idx]>=2)msg+=`<div class="hint">💡 <strong>Hinweis:</strong> ${HINTS[idx]}</div>`;
-    fb.innerHTML=msg;
-    document.querySelectorAll(`#ch-${idx} .choice-btn`).forEach(b=>{
-      if(b.textContent.startsWith(choice+')'))b.classList.add('wrong');
-      setTimeout(()=>b.classList.remove('wrong'),1200);
+    fb.className = 'feedback show wrong-fb';
+    let msg = `❌ <strong>Leider falsch.</strong> ${WRONG_MSG[Math.min(attempts[idx]-1, WRONG_MSG.length-1)]}`;
+    if (attempts[idx] >= 2) msg += `<div class="hint">💡 <strong>Hinweis:</strong> ${HINTS[idx]}</div>`;
+    fb.innerHTML = msg;
+    document.querySelectorAll(`#ch-${idx} .choice-btn`).forEach(b => {
+      if (b.textContent.trim().startsWith(choice+')')) {
+        b.classList.add('wrong');
+        setTimeout(() => b.classList.remove('wrong'), 1200);
+      }
     });
   }
 }
-function checkAll(){
-  if(solved.every(Boolean)){
-    const s=JSON.parse(localStorage.getItem('kp7_solved')||'[]');
-    if(!s.includes('e4'))s.push('e4');
-    localStorage.setItem('kp7_solved',JSON.stringify(s));
-    const u=JSON.parse(localStorage.getItem('kp7_unlocked')||'["e1"]');
-    if(!u.includes('m1'))u.push('m1');
-    // Check if all alpha solved → unlock m2
-    const alpha=['e1','e2','e3','e4'];
-    if(alpha.every(id=>s.includes(id))){if(!u.includes('m2'))u.push('m2');}
-    localStorage.setItem('kp7_unlocked',JSON.stringify(u));
-    setTimeout(()=>document.getElementById('codeReveal').classList.add('show'),600);
+
+function checkAll() {
+  if (solved.every(Boolean)) {
+    const s = JSON.parse(localStorage.getItem('kp7_solved') || '[]');
+    if (!s.includes('e4')) s.push('e4');
+    localStorage.setItem('kp7_solved', JSON.stringify(s));
+    const u = JSON.parse(localStorage.getItem('kp7_unlocked') || '["e1"]');
+    if (!u.includes('m1')) u.push('m1');
+    if (['e1','e2','e3','e4'].every(id => s.includes(id)) && !u.includes('m2')) u.push('m2');
+    localStorage.setItem('kp7_unlocked', JSON.stringify(u));
+    setTimeout(() => document.getElementById('codeReveal').classList.add('show'), 600);
   }
 }
-function createStars(){const c=document.getElementById('stars');for(let i=0;i<120;i++){const s=document.createElement('div');s.className='star';const sz=Math.random()*2+.5;s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${Math.random()*4+2}s;--delay:${Math.random()*4}s;--op:${Math.random()*.5+.1};`;c.appendChild(s);}}
+
+function createStars(){const c=document.getElementById('stars');for(let i=0;i<120;i++){const el=document.createElement('div');el.className='star';const sz=Math.random()*2+.5;el.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${Math.random()*4+2}s;--delay:${Math.random()*4}s;--op:${Math.random()*.5+.1};`;c.appendChild(el);}}
 createStars();
-window.addEventListener('load',()=>{const s=JSON.parse(localStorage.getItem('kp7_solved')||'[]');if(s.includes('e4')){[0,1].forEach(i=>{solved[i]=true;document.getElementById('dot-'+i).classList.add('done');});document.getElementById('codeReveal').classList.add('show');}});
+
+window.addEventListener('load', () => {
+  const s = JSON.parse(localStorage.getItem('kp7_solved') || '[]');
+  if (s.includes('e4')) {
+    [0,1,2,3].forEach(i => { solved[i] = true; document.getElementById('dot-'+i).classList.add('done'); });
+    document.getElementById('plane-0').classList.add('show');
+    document.getElementById('plane-1').classList.add('show');
+    document.getElementById('codeReveal').classList.add('show');
+  }
+});
 </script>
 </body>
 </html>
